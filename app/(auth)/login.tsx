@@ -4,13 +4,16 @@ import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
+import BackButton from "@/components/BackButton";
 
 //.15 video 3
 //2.08
 const Login = () => {
   return (
     <ScreenWrapper>
-      <View style={styles.container}></View>
+      <View style={styles.container}>
+        <BackButton />
+      </View>
     </ScreenWrapper>
   );
 };
