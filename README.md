@@ -48,4 +48,24 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
 # My-Expense-Tracker
+
+// export default ScreenWrapper;
+
+import { View, Text, StatusBar } from "react-native";
+import React from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+const ScreenWrapper = ({ children, bg }) => {
+const { top } = useSafeAreaInsets();
+const paddingTop = top > 0 ? top + 5 : 30;
+return (
+<View style={{ flex: 1, paddingTop, backgroundColor: bg }}>
+<StatusBar barStyle="dark-content" backgroundColor={bg} />
+{children}
+</View>
+);
+};
+
+export default ScreenWrapper;
