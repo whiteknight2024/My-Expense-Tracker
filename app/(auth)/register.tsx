@@ -2,15 +2,14 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 
-//.15 video 3
-const Login = () => {
+const Register = () => {
   return (
     <ScreenWrapper>
-      <Text>Login</Text>
+      <Text>Register</Text>
     </ScreenWrapper>
   );
 };
 
-export default Login;
+export default Register;
 
 const styles = StyleSheet.create({});
