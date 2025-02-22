@@ -47,7 +47,7 @@ const Welcome = () => {
               lifestyle in future.
             </Typo>
           </View>
-          <View style={styles.buttonContainer}></View>
+          <View style={styles.buttonContainer}>{/* button */}</View>
         </View>
       </View>
     </ScreenWrapper>
