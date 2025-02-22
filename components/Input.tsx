@@ -1,9 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { InputProps } from "@/types";
 
-const Input = () => {
+const Input = (props: InputProps) => {
   return (
-    <View>
+    <View
+      style={[styles.container, props.containerStyle && props.containerStyle]}
+    >
       <Text>Input</Text>
     </View>
   );
@@ -11,5 +14,7 @@ const Input = () => {
 
 export default Input;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {},
+});
 //8.21
