@@ -13,6 +13,8 @@ import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
+import Button from "@/components/Button";
+import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 
 const Welcome = () => {
   return (
@@ -21,9 +23,10 @@ const Welcome = () => {
         {/* login button and image */}
         <View>
           <TouchableOpacity style={styles.loginButton}>
-            <Typo fontWeight={"500"}>Sign In</Typo>
+            <Typo fontWeight={"400"}>Sign In</Typo>
           </TouchableOpacity>
-          <Image
+          <Animated.Image
+            entering={FadeIn.duration(1000)}
             style={styles.welcomeImage}
             source={require("@/assets/images/welcome.png")}
             resizeMode="contain"
@@ -31,23 +34,45 @@ const Welcome = () => {
         </View>
         {/* footer */}
         <View style={styles.footer}>
-          <View style={{ alignItems: "center" }}>
+          <Animated.View
+            entering={FadeInDown.duration(1500).springify().damping(12)}
+            style={{ alignItems: "center" }}
+          >
             <Typo size={20} fontWeight={800}>
               Always take control
             </Typo>
             <Typo size={20} fontWeight={800}>
               of your finances
             </Typo>
-          </View>
-          <View style={{ alignItems: "center", gap: 2 }}>
+          </Animated.View>
+          <Animated.View
+            entering={FadeInDown.duration(1500)
+              .delay(100)
+              .springify()
+              .damping(12)}
+            style={{ alignItems: "center", gap: 2 }}
+          >
             <Typo size={10} color={colors.textLight}>
               Finances must be arranged to set a better
             </Typo>
             <Typo size={10} color={colors.textLight}>
               lifestyle in future.
             </Typo>
-          </View>
-          <View style={styles.buttonContainer}>{/* button */}</View>
+          </Animated.View>
+
+          <Animated.View
+            entering={FadeInDown.duration(1500)
+              .delay(200)
+              .springify()
+              .damping(12)}
+            style={styles.buttonContainer}
+          >
+            <Button>
+              <Typo size={17} color={colors.neutral900} fontWeight={600}>
+                Get Started
+              </Typo>
+            </Button>
+          </Animated.View>
         </View>
       </View>
     </ScreenWrapper>
