@@ -3,6 +3,7 @@ import React from "react";
 import { CustomButtonProps } from "@/types";
 import { colors, radius } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
+import Loading from "./Loading";
 
 const Button = ({
   style,
@@ -14,6 +15,7 @@ const Button = ({
     return (
       <View style={[styles.button, style, { backgroundColor: "transparent" }]}>
         {/* loading component */}
+        <Loading />
       </View>
     );
   }
