@@ -28,7 +28,7 @@ const Welcome = () => {
             onPress={() => router.push("/(auth)/login")}
             style={styles.loginButton}
           >
-            <Typo fontWeight={"400"}>Sign In</Typo>
+            <Typo fontWeight={"500"}>Sign In</Typo>
           </TouchableOpacity>
           <Animated.Image
             entering={FadeIn.duration(1000)}

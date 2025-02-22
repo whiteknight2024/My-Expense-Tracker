@@ -5,6 +5,7 @@ import Typo from "@/components/Typo";
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
 import BackButton from "@/components/BackButton";
+import Input from "@/components/Input";
 
 //.15 video 3
 //2.08
@@ -12,7 +13,23 @@ const Login = () => {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        <BackButton />
+        <BackButton iconSize={28} />
+        <View style={{ gap: 5, marginTop: spacingY._20 }}>
+          <Typo size={30} fontWeight={800}>
+            Hey,
+          </Typo>
+          <Typo size={30} fontWeight={800}>
+            Welcome back!
+          </Typo>
+        </View>
+        {/* form */}
+        <View style={styles.form}>
+          <Typo size={16} color={colors.textLighter}>
+            Login now to track all your expenses!
+          </Typo>
+          {/* custom input form fields */}
+          <Input />
+        </View>
       </View>
     </ScreenWrapper>
   );
