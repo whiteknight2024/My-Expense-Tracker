@@ -63,6 +63,12 @@ const Login = () => {
       }
       return;
     }
+    console.log("email: ", emailRef);
+    console.log("password: ", passwordRef);
+
+    let email = emailRef.current.trim();
+    let password = passwordRef.current.trim();
+    setIsLoading(true);
   };
 
   return (
