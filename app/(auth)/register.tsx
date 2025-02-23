@@ -42,13 +42,13 @@ const Register = () => {
     ) {
       if (Platform.OS === "android") {
         //ToastAndroid.show("Please Enter All Information", ToastAndroid.BOTTOM);
-        Alert.alert("Login Error", "Please Enter All Information");
+        Alert.alert("SignUp Error", "Please Enter All Information");
       } else {
         console.log("Not all data added");
         if (Platform.OS === "web") {
-          alert("Login Error: Please Enter All Information");
+          alert("SignUp Error: Please Enter All Information");
         } else {
-          Alert.alert("Login Error", "Please Enter All Information");
+          Alert.alert("SignUp Error", "Please Enter All Information");
         }
       }
       return;
@@ -59,13 +59,13 @@ const Register = () => {
         //   "Please Enter a Valid Email Address",
         //   ToastAndroid.BOTTOM
         // );
-        Alert.alert("Login Error", "Please Enter a Valid Email Address");
+        Alert.alert("SignUp Error", "Please Enter a Valid Email Address");
       } else {
         console.log("Invalid email format");
         if (Platform.OS === "web") {
-          alert("Login Error: Please Enter a Valid Email Address");
+          alert("SignUp Error: Please Enter a Valid Email Address");
         } else {
-          Alert.alert("Login Error", "Please Enter a Valid Email Address");
+          Alert.alert("SignUp Error", "Please Enter a Valid Email Address");
         }
       }
       return;
@@ -112,23 +112,23 @@ const Register = () => {
         <BackButton iconSize={28} />
         <View style={{ gap: 5, marginTop: spacingY._20 }}>
           <Typo size={30} fontWeight={800}>
-            Hey,
+            Let's,
           </Typo>
           <Typo size={30} fontWeight={800}>
-            Welcome back!
+            Get Started!
           </Typo>
         </View>
         {/* form */}
         <View style={styles.form}>
           <Typo size={16} color={colors.textLighter}>
-            Login now to track all your expenses!
+            Create an account to track all your expenses!
           </Typo>
           {/* custom input form fields */}
           <Input
             placeholder="Enter your name"
             onChangeText={(value) => (nameRef.current = value)}
             icon={
-              <Icons.At
+              <Icons.User
                 size={verticalScale(26)}
                 color={colors.neutral300}
                 weight="fill"
