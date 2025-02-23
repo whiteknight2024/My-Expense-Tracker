@@ -5,9 +5,9 @@ import {
 } from "firebase/auth";
 import { createContext, useState } from "react";
 import { auth, firestore } from "@/config/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
-const authContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -47,21 +47,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   //9.35
   const updateUserData = async (uid: string) => {
     try {
-      let response = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      //create a document for the user
-      await setDoc(doc(firestore, "users", response?.user?.uid), {
-        name,
-        email,
-        uid: response?.user?.uid,
-      });
-      return { success: true };
+      const docRef = doc(firestore, "users", uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const userData: UserType = {
+          uid: data?.uid,
+          email: data.email || null,
+          name: data.name || null,
+          image: data.image || null,
+        };
+        setUser({ ...userData });
+      }
     } catch (error: any) {
       let msg = error.message;
-      return { success: false, msg };
+
+      //return { success: false, msg };
+      console.log("error: ", error);
     }
   };
+  const contextValue: AuthContextType = {
+    user,
+    setUser,
+    login,
+    register,
+    updateUserData,
+  };
+
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
 };
