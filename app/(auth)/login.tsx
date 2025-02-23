@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  ToastAndroid,
+  Alert,
+  Platform,
+} from "react-native";
 import React, { useRef, useState } from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
@@ -8,7 +16,7 @@ import BackButton from "@/components/BackButton";
 import Input from "@/components/Input";
 import * as Icons from "phosphor-react-native";
 import Button from "@/components/Button";
-
+import { useRouter } from "expo-router";
 //.15 video 3
 //17.08
 const Login = () => {
@@ -16,7 +24,46 @@ const Login = () => {
   const passwordRef = useRef(""); //usestate will reredner the component
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async () => {};
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const router = useRouter();
+
+  const handleSubmit = async () => {
+    if (!emailRef.current || !passwordRef.current) {
+      if (Platform.OS === "android") {
+        //ToastAndroid.show("Please Enter All Information", ToastAndroid.BOTTOM);
+        Alert.alert("Login Error", "Please Enter All Information");
+      } else {
+        console.log("Not all data added");
+        if (Platform.OS === "web") {
+          alert("Login Error: Please Enter All Information");
+        } else {
+          Alert.alert("Login Error", "Please Enter All Information");
+        }
+      }
+      return;
+    }
+    if (!validateEmail(emailRef.current)) {
+      if (Platform.OS === "android") {
+        // ToastAndroid.show(
+        //   "Please Enter a Valid Email Address",
+        //   ToastAndroid.BOTTOM
+        // );
+        Alert.alert("Login Error", "Please Enter a Valid Email Address");
+      } else {
+        console.log("Invalid email format");
+        if (Platform.OS === "web") {
+          alert("Login Error: Please Enter a Valid Email Address");
+        } else {
+          Alert.alert("Login Error", "Please Enter a Valid Email Address");
+        }
+      }
+      return;
+    }
+  };
 
   return (
     <ScreenWrapper>
@@ -71,6 +118,11 @@ const Login = () => {
         {/* footer */}
         <View style={styles.footer}>
           <Typo size={15}>Don't have an account?</Typo>
+          <Pressable onPress={() => router.push("/(auth)/register")}>
+            <Typo size={15} fontWeight={700} color={colors.primary}>
+              Sign up
+            </Typo>
+          </Pressable>
         </View>
       </View>
     </ScreenWrapper>
