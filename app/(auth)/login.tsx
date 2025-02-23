@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React {useRef} from "react";
+import React, { useRef, useState } from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
 import { colors, spacingX, spacingY } from "@/constants/theme";
@@ -7,13 +7,16 @@ import { verticalScale } from "@/utils/styling";
 import BackButton from "@/components/BackButton";
 import Input from "@/components/Input";
 import * as Icons from "phosphor-react-native";
-import { useRef } from "react";
+import Button from "@/components/Button";
 
 //.15 video 3
-//13.49
+//15.13
 const Login = () => {
-const emailRef = useRef("");  //usestate will reredner the component
-const passwordRef = useRef("");  //usestate will reredner the component
+  const emailRef = useRef(""); //usestate will reredner the component
+  const passwordRef = useRef(""); //usestate will reredner the component
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async () => {};
 
   return (
     <ScreenWrapper>
@@ -35,7 +38,7 @@ const passwordRef = useRef("");  //usestate will reredner the component
           {/* custom input form fields */}
           <Input
             placeholder="Enter your email"
-            onChangeText={(value)=> (emailRef.current=value)}
+            onChangeText={(value) => (emailRef.current = value)}
             icon={
               <Icons.At
                 size={verticalScale(26)}
@@ -47,7 +50,7 @@ const passwordRef = useRef("");  //usestate will reredner the component
           <Input
             placeholder="Enter your password"
             secureTextEntry={true}
-            onChangeText={(value)=> (passwordRef.current=value)}
+            onChangeText={(value) => (passwordRef.current = value)}
             icon={
               <Icons.Lock
                 size={verticalScale(26)}
@@ -56,8 +59,21 @@ const passwordRef = useRef("");  //usestate will reredner the component
               />
             }
           />
+          <Typo size={14} color={colors.text} style={{ alignSelf: "flex-end" }}>
+            Forgot password?
+          </Typo>
+          <Button loading={isLoading} onPress={handleSubmit}>
+            <Typo fontWeight={"700"} color={colors.black} size={21}>
+              Login
+            </Typo>
+          </Button>
         </View>
         {/* footer */}
+        <View style={styles.footer}>
+          <Typo fontWeight={"700"} color={colors.black} size={21}>
+            Login
+          </Typo>
+        </View>
       </View>
     </ScreenWrapper>
   );
