@@ -3,12 +3,13 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { auth, firestore } from "@/config/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
+//13.14 video 4
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
@@ -77,4 +78,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
+};
+
+//useauth hook
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be wrapped inside AuthProvider");
+  }
+  return context;
 };

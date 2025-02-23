@@ -17,8 +17,8 @@ import Input from "@/components/Input";
 import * as Icons from "phosphor-react-native";
 import Button from "@/components/Button";
 import { useRouter } from "expo-router";
-//.15 video 3
-//17.08
+//14.23 video 4
+
 const Register = () => {
   const emailRef = useRef(""); //usestate will reredner the component
   const passwordRef = useRef(""); //usestate will reredner the component
