@@ -10,7 +10,7 @@ import * as Icons from "phosphor-react-native";
 import Button from "@/components/Button";
 
 //.15 video 3
-//15.13
+//17.08
 const Login = () => {
   const emailRef = useRef(""); //usestate will reredner the component
   const passwordRef = useRef(""); //usestate will reredner the component
@@ -70,9 +70,7 @@ const Login = () => {
         </View>
         {/* footer */}
         <View style={styles.footer}>
-          <Typo fontWeight={"700"} color={colors.black} size={21}>
-            Login
-          </Typo>
+          <Typo size={15}>Don't have an account?</Typo>
         </View>
       </View>
     </ScreenWrapper>
