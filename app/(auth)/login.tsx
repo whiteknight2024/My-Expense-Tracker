@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React {useRef} from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
 import { colors, spacingX, spacingY } from "@/constants/theme";
@@ -7,10 +7,16 @@ import { verticalScale } from "@/utils/styling";
 import BackButton from "@/components/BackButton";
 import Input from "@/components/Input";
 import * as Icons from "phosphor-react-native";
+import { useRef } from "react";
 
 //.15 video 3
 //2.08
 const Login = () => {
+const emailRef = useRef("");  //usestate will reredner the component
+const passwordRef = useRef("");  //usestate will reredner the component
+
+
+
   return (
     <ScreenWrapper>
       <View style={styles.container}>
@@ -31,8 +37,13 @@ const Login = () => {
           {/* custom input form fields */}
           <Input
             placeholder="Enter your email"
+            onChangeText={(value)=> (emailRef.current=value)}
             icon={
-              <Icons.At size={verticalScale(26)} color={colors.neutral300} />
+              <Icons.At
+                size={verticalScale(26)}
+                color={colors.neutral300}
+                weight="fill"
+              />
             }
           />
         </View>
