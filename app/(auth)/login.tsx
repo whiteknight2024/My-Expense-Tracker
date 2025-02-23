@@ -6,6 +6,7 @@ import { colors, spacingX, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
 import BackButton from "@/components/BackButton";
 import Input from "@/components/Input";
+import * as Icons from "phosphor-react-native";
 
 //.15 video 3
 //2.08
@@ -28,7 +29,12 @@ const Login = () => {
             Login now to track all your expenses!
           </Typo>
           {/* custom input form fields */}
-          <Input />
+          <Input
+            placeholder="Enter your email"
+            icon={
+              <Icons.At size={verticalScale(26)} color={colors.neutral300} />
+            }
+          />
         </View>
       </View>
     </ScreenWrapper>
