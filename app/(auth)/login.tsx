@@ -10,12 +10,10 @@ import * as Icons from "phosphor-react-native";
 import { useRef } from "react";
 
 //.15 video 3
-//2.08
+//13.49
 const Login = () => {
 const emailRef = useRef("");  //usestate will reredner the component
 const passwordRef = useRef("");  //usestate will reredner the component
-
-
 
   return (
     <ScreenWrapper>
@@ -46,7 +44,20 @@ const passwordRef = useRef("");  //usestate will reredner the component
               />
             }
           />
+          <Input
+            placeholder="Enter your password"
+            secureTextEntry={true}
+            onChangeText={(value)=> (passwordRef.current=value)}
+            icon={
+              <Icons.Lock
+                size={verticalScale(26)}
+                color={colors.neutral300}
+                weight="fill"
+              />
+            }
+          />
         </View>
+        {/* footer */}
       </View>
     </ScreenWrapper>
   );
