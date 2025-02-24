@@ -5,13 +5,15 @@ import Typo from "@/components/Typo";
 import { verticalScale } from "@/utils/styling";
 import { colors, radius, spacingX, spacingY } from "@/constants/theme";
 import Header from "@/components/Header";
+import BackButton from "@/components/BackButton";
 
 const Profile = () => {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
         {/* Header */}
-        <Header />
+        <Header title="Profile" style={{ marginVertical: spacingY._10 }} />
+        {/* User Info */}
       </View>
     </ScreenWrapper>
   );
