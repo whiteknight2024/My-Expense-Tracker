@@ -28,6 +28,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           email: firebaseUser?.email,
           name: firebaseUser?.displayName,
         });
+        //update user state from the user document (name in this case)
+        updateUserData(firebaseUser.uid);
         //replace s user can not go back to previous router
         router.replace("/(tabs)");
       } else {
@@ -45,6 +47,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       return { success: true };
     } catch (error: any) {
       let msg = error.message;
+      console.log("error message: ", msg);
+      if (msg.includes("(auth/invalid-credential)"))
+        msg = "Invalid Credentials";
+      if (msg.includes("(auth/invalid-email)")) msg = "Invalid Email";
       return { success: false, msg };
     }
   };
@@ -65,11 +71,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       return { success: true };
     } catch (error: any) {
       let msg = error.message;
+      if (msg.includes("(auth/email-already-in-use)"))
+        msg = "Email Already In Use";
+      if (msg.includes("(auth/invalid-email)")) msg = "Invalid Email";
       return { success: false, msg };
     }
   };
 
-  //9.35
+  //9.35-31.10
   const updateUserData = async (uid: string) => {
     try {
       const docRef = doc(firestore, "users", uid);
