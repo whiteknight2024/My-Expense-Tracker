@@ -5,6 +5,7 @@ import Typo from "@/components/Typo";
 import { colors } from "@/constants/theme";
 import { signOut } from "firebase/auth";
 import { auth } from "@/config/firebase";
+import ScreenWrapper from "@/components/ScreenWrapper";
 
 //22.58 add logout button
 const Home = () => {
@@ -13,12 +14,12 @@ const Home = () => {
   };
 
   return (
-    <View>
-      <Text>Home</Text>
+    <ScreenWrapper>
+      <Typo>Home</Typo>
       <Button onPress={handleLogout}>
         <Typo color={colors.black}>Logout</Typo>
       </Button>
-    </View>
+    </ScreenWrapper>
   );
 };
 
