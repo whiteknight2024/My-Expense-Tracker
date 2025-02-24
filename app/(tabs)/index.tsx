@@ -1,10 +1,23 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import Button from "@/components/Button";
+import Typo from "@/components/Typo";
+import { colors } from "@/constants/theme";
+import { signOut } from "firebase/auth";
+import { auth } from "@/config/firebase";
 
+//22.58 add logout button
 const Home = () => {
+  const handleLogout = async () => {
+    await signOut(auth);
+  };
+
   return (
     <View>
       <Text>Home</Text>
+      <Button onPress={handleLogout}>
+        <Typo color={colors.black}>Logout</Typo>
+      </Button>
     </View>
   );
 };

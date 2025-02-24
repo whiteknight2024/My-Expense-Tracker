@@ -56,7 +56,7 @@ const Register = () => {
       }
       return;
     }
-    if (!validateEmail(emailRef.current)) {
+    if (!validateEmail(emailRef.current.trim())) {
       if (Platform.OS === "android") {
         // ToastAndroid.show(
         //   "Please Enter a Valid Email Address",

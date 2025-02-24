@@ -17,12 +17,16 @@ import Input from "@/components/Input";
 import * as Icons from "phosphor-react-native";
 import Button from "@/components/Button";
 import { useRouter } from "expo-router";
-//.15 video 3
-//17.08
+import { useAuth } from "@/contexts/authContext";
+//import { signInWithEmailAndPassword } from "firebase/auth";
+//import { auth } from "@/config/firebase";
+
+//24.54 video 4
 const Login = () => {
   const emailRef = useRef(""); //usestate will reredner the component
   const passwordRef = useRef(""); //usestate will reredner the component
   const [isLoading, setIsLoading] = useState(false);
+  const { login: loginUser } = useAuth();
 
   const validateEmail = (email: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -46,7 +50,7 @@ const Login = () => {
       }
       return;
     }
-    if (!validateEmail(emailRef.current)) {
+    if (!validateEmail(emailRef.current.trim())) {
       if (Platform.OS === "android") {
         // ToastAndroid.show(
         //   "Please Enter a Valid Email Address",
@@ -63,12 +67,15 @@ const Login = () => {
       }
       return;
     }
-    console.log("email: ", emailRef);
-    console.log("password: ", passwordRef);
-
+    setIsLoading(true);
     let email = emailRef.current.trim();
     let password = passwordRef.current.trim();
-    setIsLoading(true);
+    const res = await loginUser(email, password);
+    setIsLoading(false);
+    console.log("login result: ", res);
+    if (!res.success) {
+      Alert.alert("Login", res.msg);
+    }
   };
 
   return (
