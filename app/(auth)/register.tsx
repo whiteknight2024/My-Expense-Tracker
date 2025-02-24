@@ -101,9 +101,17 @@ const Register = () => {
     }
 
     setIsLoading(true);
+
     let name = nameRef.current.trim();
     let email = emailRef.current.trim();
     let password = passwordRef.current.trim();
+
+    const res = await registerUser(email, password, name);
+    setIsLoading(false);
+    console.log("reg result: ", res);
+    if (!res.success) {
+      Alert.alert("Sign Up", res.msg);
+    }
   };
 
   return (
