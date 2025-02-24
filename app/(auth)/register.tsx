@@ -17,6 +17,8 @@ import Input from "@/components/Input";
 import * as Icons from "phosphor-react-native";
 import Button from "@/components/Button";
 import { useRouter } from "expo-router";
+import { useAuth } from "@/contexts/authContext";
+
 //14.23 video 4
 
 const Register = () => {
@@ -25,6 +27,7 @@ const Register = () => {
   const nameRef = useRef(""); //usestate will reredner the component
   const passwordConfirmRef = useRef(""); //usestate will reredner the component
   const [isLoading, setIsLoading] = useState(false);
+  const { register: registerUser } = useAuth();
 
   const validateEmail = (email: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -96,14 +99,11 @@ const Register = () => {
       }
       return;
     }
-    console.log("name: ", nameRef);
-    console.log("email: ", emailRef);
-    console.log("password: ", passwordRef);
 
+    setIsLoading(true);
     let name = nameRef.current.trim();
     let email = emailRef.current.trim();
     let password = passwordRef.current.trim();
-    setIsLoading(true);
   };
 
   return (
