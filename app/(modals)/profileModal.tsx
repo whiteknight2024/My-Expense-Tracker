@@ -3,12 +3,13 @@ import React from "react";
 import { scale, verticalScale } from "@/utils/styling";
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import ScreenWrapper from "@/components/ScreenWrapper";
+import ModalWrapper from "@/components/ModalWrapper";
 
 const ProfileModal = () => {
   return (
-    <ScreenWrapper>
+    <ModalWrapper>
       <Text>ProfileModal</Text>
-    </ScreenWrapper>
+    </ModalWrapper>
   );
 };
 
