@@ -1,4 +1,10 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import { scale, verticalScale } from "@/utils/styling";
 import { colors, spacingX, spacingY } from "@/constants/theme";
@@ -8,8 +14,9 @@ import BackButton from "@/components/BackButton";
 import { Image } from "expo-image";
 import { getProfileImage } from "@/services/imageService";
 import { useAuth } from "@/contexts/authContext";
+import * as Icons from "phosphor-react-native";
 
-//26.12
+//27.17
 const ProfileModal = () => {
   const { user } = useAuth();
   return (
@@ -29,6 +36,12 @@ const ProfileModal = () => {
               contentFit="cover"
               transition={100}
             />
+            <TouchableOpacity style={styles.editIcon}>
+              <Icons.Pencil
+                size={verticalScale(20)}
+                color={colors.neutral800}
+              />
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
