@@ -5,9 +5,13 @@ import { colors, spacingX, spacingY } from "@/constants/theme";
 import ModalWrapper from "@/components/ModalWrapper";
 import Header from "@/components/Header";
 import BackButton from "@/components/BackButton";
+import { Image } from "expo-image";
+import { getProfileImage } from "@/services/imageService";
+import { useAuth } from "@/contexts/authContext";
 
 //26.12
 const ProfileModal = () => {
+  const { user } = useAuth();
   return (
     <ModalWrapper>
       <View style={styles.container}>
@@ -17,7 +21,16 @@ const ProfileModal = () => {
           style={{ marginBottom: spacingY._10 }}
         />
         {/* Form */}
-        <ScrollView contentContainerStyle={styles.form}></ScrollView>
+        <ScrollView contentContainerStyle={styles.form}>
+          <View style={styles.avatarContainer}>
+            <Image
+              source={getProfileImage(user?.image)}
+              style={styles.avatar}
+              contentFit="cover"
+              transition={100}
+            />
+          </View>
+        </ScrollView>
       </View>
     </ModalWrapper>
   );
