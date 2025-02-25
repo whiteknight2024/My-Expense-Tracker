@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { scale, verticalScale } from "@/utils/styling";
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import ModalWrapper from "@/components/ModalWrapper";
@@ -14,7 +14,7 @@ import Header from "@/components/Header";
 import BackButton from "@/components/BackButton";
 import { Image } from "expo-image";
 import { getProfileImage } from "@/services/imageService";
-//import { useAuth } from "@/contexts/authContext";
+import { useAuth } from "@/contexts/authContext";
 import * as Icons from "phosphor-react-native";
 import Typo from "@/components/Typo";
 import Input from "@/components/Input";
@@ -23,8 +23,16 @@ import Button from "@/components/Button";
 
 //32.05
 const ProfileModal = () => {
-  //const { user } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setUserData({
+      name: userData?.name || "",
+      image: user?.image || null,
+    });
+  }, [user]);
+
   const [userData, setUserData] = useState<UserDataType>({
     name: "",
     image: null,
