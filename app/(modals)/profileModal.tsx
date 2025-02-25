@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { scale, verticalScale } from "@/utils/styling";
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import ModalWrapper from "@/components/ModalWrapper";
@@ -13,12 +13,24 @@ import Header from "@/components/Header";
 import BackButton from "@/components/BackButton";
 import { Image } from "expo-image";
 import { getProfileImage } from "@/services/imageService";
-import { useAuth } from "@/contexts/authContext";
+//import { useAuth } from "@/contexts/authContext";
 import * as Icons from "phosphor-react-native";
+import Typo from "@/components/Typo";
+import Input from "@/components/Input";
+import { UserDataType } from "@/types";
+import Button from "@/components/Button";
 
-//27.17
+//28.22
 const ProfileModal = () => {
-  const { user } = useAuth();
+  //const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState<UserDataType>({
+    name: "",
+    image: null,
+  });
+
+  const onSubmit = async () => {};
+
   return (
     <ModalWrapper>
       <View style={styles.container}>
@@ -31,7 +43,7 @@ const ProfileModal = () => {
         <ScrollView contentContainerStyle={styles.form}>
           <View style={styles.avatarContainer}>
             <Image
-              source={getProfileImage(user?.image)}
+              source={getProfileImage(userData.image)}
               style={styles.avatar}
               contentFit="cover"
               transition={100}
@@ -43,7 +55,24 @@ const ProfileModal = () => {
               />
             </TouchableOpacity>
           </View>
+          <View style={styles.inputContainer}>
+            <Typo color={colors.neutral200}>Name</Typo>
+            <Input
+              placeholder="Name"
+              value={userData.name}
+              onChangeText={(value) =>
+                setUserData({ ...userData, name: value })
+              }
+            />
+          </View>
         </ScrollView>
+      </View>
+      <View style={styles.footer}>
+        <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
+          <Typo color={colors.black} fontWeight={"700"}>
+            Update
+          </Typo>
+        </Button>
       </View>
     </ModalWrapper>
   );
