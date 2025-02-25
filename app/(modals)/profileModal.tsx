@@ -1,4 +1,5 @@
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -20,7 +21,7 @@ import Input from "@/components/Input";
 import { UserDataType } from "@/types";
 import Button from "@/components/Button";
 
-//28.22
+//32.05
 const ProfileModal = () => {
   //const { user } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -29,7 +30,13 @@ const ProfileModal = () => {
     image: null,
   });
 
-  const onSubmit = async () => {};
+  const onSubmit = async () => {
+    let { name, image } = userData;
+    if (!name.trim()) {
+      Alert.alert("User", "Please fill all the fields");
+      return;
+    }
+  };
 
   return (
     <ModalWrapper>
