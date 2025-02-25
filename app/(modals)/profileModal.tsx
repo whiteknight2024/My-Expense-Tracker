@@ -21,11 +21,13 @@ import Input from "@/components/Input";
 import { UserDataType } from "@/types";
 import Button from "@/components/Button";
 import { updateUser } from "@/services/userService";
+import { useRouter } from "expo-router";
 
 //32.05
 const ProfileModal = () => {
-  const { user } = useAuth();
+  const { user, updateUserData } = useAuth();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setUserData({
@@ -51,6 +53,8 @@ const ProfileModal = () => {
 
     if (res.success) {
       //update the user
+      updateUserData(user?.uid as string);
+      router.back();
     } else {
       Alert.alert("User", res.msg);
     }
