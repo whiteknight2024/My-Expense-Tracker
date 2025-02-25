@@ -6,14 +6,24 @@ import { verticalScale } from "@/utils/styling";
 import { colors, radius, spacingX, spacingY } from "@/constants/theme";
 import Header from "@/components/Header";
 import BackButton from "@/components/BackButton";
+import { useAuth } from "@/contexts/authContext";
 
 const Profile = () => {
+  const { user } = useAuth();
   return (
     <ScreenWrapper>
       <View style={styles.container}>
         {/* Header */}
         <Header title="Profile" style={{ marginVertical: spacingY._10 }} />
-        {/* User Info */}
+        {/* User Info *  5.01 vid 6*/}
+        <View style={styles.userInfo}>
+          {/* avatar */}
+          <View></View>
+          {/* name and email */}
+          <View style={styles.nameContainer}>
+            <Typo>{user?.name}</Typo>
+          </View>
+        </View>
       </View>
     </ScreenWrapper>
   );
