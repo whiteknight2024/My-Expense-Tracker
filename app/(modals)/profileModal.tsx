@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { scale, verticalScale } from "@/utils/styling";
 import { colors, spacingX, spacingY } from "@/constants/theme";
@@ -6,12 +6,18 @@ import ModalWrapper from "@/components/ModalWrapper";
 import Header from "@/components/Header";
 import BackButton from "@/components/BackButton";
 
-//24.56
+//26.12
 const ProfileModal = () => {
   return (
     <ModalWrapper>
       <View style={styles.container}>
-        <Header title="Update Profile" leftIcon={<BackButton />} />
+        <Header
+          title="Update Profile"
+          leftIcon={<BackButton />}
+          style={{ marginBottom: spacingY._10 }}
+        />
+        {/* Form */}
+        <ScrollView contentContainerStyle={styles.form}></ScrollView>
       </View>
     </ModalWrapper>
   );
