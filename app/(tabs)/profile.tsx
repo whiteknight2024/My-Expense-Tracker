@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
@@ -66,6 +66,30 @@ const Profile = () => {
               {user?.email}
             </Typo>
           </View>
+        </View>
+        {/* Account Options */}
+        <View style={styles.accountOptions}>
+          {accountOptions.map((item, index) => {
+            return (
+              <View key={index} style={styles.listItem}>
+                <TouchableOpacity style={styles.flexRow}>
+                  {/* icon */}
+                  <View
+                    style={[
+                      styles.listIcon,
+                      { backgroundColor: item?.bgColor },
+                    ]}
+                  >
+                    {item.icon && item.icon}
+                  </View>
+                  <Typo size={16} style={{ flex: 1 }} fontWeight={"500"}>
+                    {item.title}
+                  </Typo>
+                  {/* 15.19 */}
+                </TouchableOpacity>
+              </View>
+            );
+          })}
         </View>
       </View>
     </ScreenWrapper>
