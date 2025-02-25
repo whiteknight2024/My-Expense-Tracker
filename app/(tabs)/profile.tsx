@@ -9,9 +9,38 @@ import BackButton from "@/components/BackButton";
 import { useAuth } from "@/contexts/authContext";
 import { Image } from "expo-image";
 import { getProfileImage } from "@/services/imageService";
+import { accountOptionType } from "@/types";
+import * as Icons from "phosphor-react-native";
 
 const Profile = () => {
   const { user } = useAuth();
+  const accountOptions: accountOptionType[] = [
+    {
+      title: "Edit Profile",
+      icon: <Icons.User size={26} color={colors.white} weight="fill" />,
+      routeName: "/(modals)/profileModal",
+      bgColor: "#6366f1",
+    },
+    {
+      title: "Settings",
+      icon: <Icons.GearSix size={26} color={colors.white} weight="fill" />,
+      //routeName: "/(modals)/profileModal",
+      bgColor: "#059669",
+    },
+    {
+      title: "Privacy Policy",
+      icon: <Icons.Lock size={26} color={colors.white} weight="fill" />,
+      //routeName: "/(modals)/profileModal",
+      bgColor: colors.neutral600,
+    },
+    {
+      title: "Logout",
+      icon: <Icons.Power size={26} color={colors.white} weight="fill" />,
+      //routeName: "/(modals)/profileModal",
+      bgColor: "#e11d48",
+    },
+  ];
+
   return (
     <ScreenWrapper>
       <View style={styles.container}>
