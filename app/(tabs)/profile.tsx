@@ -21,7 +21,12 @@ const Profile = () => {
           <View></View>
           {/* name and email */}
           <View style={styles.nameContainer}>
-            <Typo>{user?.name}</Typo>
+            <Typo size={24} fontWeight={"600"} color={colors.neutral100}>
+              {user?.name}
+            </Typo>
+            <Typo size={15} color={colors.neutral400}>
+              {user?.email}
+            </Typo>
           </View>
         </View>
       </View>
