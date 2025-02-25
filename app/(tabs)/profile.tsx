@@ -7,6 +7,8 @@ import { colors, radius, spacingX, spacingY } from "@/constants/theme";
 import Header from "@/components/Header";
 import BackButton from "@/components/BackButton";
 import { useAuth } from "@/contexts/authContext";
+import { Image } from "expo-image";
+import { getProfileImage } from "@/services/imageService";
 
 const Profile = () => {
   const { user } = useAuth();
@@ -18,7 +20,14 @@ const Profile = () => {
         {/* User Info *  5.01 vid 6*/}
         <View style={styles.userInfo}>
           {/* avatar */}
-          <View></View>
+          <View style={styles.avatarContainer}>
+            <Image
+              source={getProfileImage(user?.image)}
+              style={styles.avatar}
+              contentFit="cover"
+              transition={100}
+            />
+          </View>
           {/* name and email */}
           <View style={styles.nameContainer}>
             <Typo size={24} fontWeight={"600"} color={colors.neutral100}>
