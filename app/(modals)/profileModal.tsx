@@ -28,7 +28,7 @@ const ProfileModal = () => {
 
   useEffect(() => {
     setUserData({
-      name: userData?.name || "",
+      name: user?.name || "",
       image: user?.image || null,
     });
   }, [user]);
