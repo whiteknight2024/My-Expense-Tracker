@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
@@ -12,9 +12,37 @@ import { getProfileImage } from "@/services/imageService";
 import { accountOptionType } from "@/types";
 import * as Icons from "phosphor-react-native";
 import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
+import { signOut } from "firebase/auth";
+import { auth } from "@/config/firebase";
 
 const Profile = () => {
   const { user } = useAuth();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+  };
+
+  const showLogoutAlert = () => {
+    Alert.alert("Confirm", "Are you sure you want to logout?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("cancel logout"),
+        style: "cancel",
+      },
+      {
+        text: "Logout",
+        onPress: () => handleLogout(),
+        style: "destructive",
+      },
+    ]);
+  };
+
+  const handlePress = (item: accountOptionType) => {
+    if (item.title == "Logout") {
+      showLogoutAlert();
+    }
+  };
+
   const accountOptions: accountOptionType[] = [
     {
       title: "Edit Profile",
@@ -79,7 +107,10 @@ const Profile = () => {
                 key={index.toString()}
                 style={styles.listItem}
               >
-                <TouchableOpacity style={styles.flexRow}>
+                <TouchableOpacity
+                  style={styles.flexRow}
+                  onPress={() => handlePress(item)}
+                >
                   {/* icon */}
                   <View
                     style={[
