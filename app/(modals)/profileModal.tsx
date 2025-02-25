@@ -20,6 +20,7 @@ import Typo from "@/components/Typo";
 import Input from "@/components/Input";
 import { UserDataType } from "@/types";
 import Button from "@/components/Button";
+import { updateUser } from "@/services/userService";
 
 //32.05
 const ProfileModal = () => {
@@ -43,6 +44,15 @@ const ProfileModal = () => {
     if (!name.trim()) {
       Alert.alert("User", "Please fill all the fields");
       return;
+    }
+    setLoading(true);
+    const res = await updateUser(user?.uid as string, userData);
+    setLoading(false);
+
+    if (res.success) {
+      //update the user
+    } else {
+      Alert.alert("User", res.msg);
     }
   };
 
