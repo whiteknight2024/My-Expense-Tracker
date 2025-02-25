@@ -2,13 +2,17 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { scale, verticalScale } from "@/utils/styling";
 import { colors, spacingX, spacingY } from "@/constants/theme";
-import ScreenWrapper from "@/components/ScreenWrapper";
 import ModalWrapper from "@/components/ModalWrapper";
+import Header from "@/components/Header";
+import BackButton from "@/components/BackButton";
 
+//24.56
 const ProfileModal = () => {
   return (
     <ModalWrapper>
-      <Text>ProfileModal</Text>
+      <View style={styles.container}>
+        <Header title="Update Profile" leftIcon={<BackButton />} />
+      </View>
     </ModalWrapper>
   );
 };
