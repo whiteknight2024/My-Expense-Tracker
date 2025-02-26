@@ -8,7 +8,16 @@ import { verticalScale } from "@/utils/styling";
 const Wallet = () => {
   return (
     <ScreenWrapper style={{ backgroundColor: colors.black }}>
-      <View style={styles.container}>{/* balance view */}</View>
+      <View style={styles.container}>
+        {/* balance view */}
+        <View style={styles.balanceView}>
+          <View style={{ alignItems: "center" }}>
+            <Typo size={45} fontWeight={"500"}>
+              $2390
+            </Typo>
+          </View>
+        </View>
+      </View>
     </ScreenWrapper>
   );
 };
