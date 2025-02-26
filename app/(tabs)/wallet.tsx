@@ -44,6 +44,7 @@ const Wallet = () => {
             </TouchableOpacity>
           </View>
           {/* wallet list */}
+          
         </View>
       </View>
     </ScreenWrapper>
