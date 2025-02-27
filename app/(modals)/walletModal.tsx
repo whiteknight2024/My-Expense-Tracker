@@ -23,27 +23,13 @@ import Button from "@/components/Button";
 import { updateUser } from "@/services/userService";
 import { useRouter } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
+import ImageUpload from "@/components/ImageUpload";
 
-//6.17 video 8
+//7.42 video 8
 const WalletModal = () => {
   const { user, updateUserData } = useAuth();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    setWallet({
-      name: user?.name || "",
-      image: user?.image || null,
-      //     id?: string;
-      // name: string;
-      // amount?: number;
-      // totalIncome?: number;
-      // totalExpenses?: number;
-      // image: any;
-      // uid?: string;
-      // created?: Date;
-    });
-  }, [user]);
 
   const [wallet, setWallet] = useState<WalletType>({
     name: "",
@@ -61,18 +47,18 @@ const WalletModal = () => {
     console.log(result);
 
     if (!result.canceled) {
-      setUserData({ ...userData, image: result.assets[0] });
+      //setUserData({ ...userData, image: result.assets[0] });
     }
   };
 
   const onSubmit = async () => {
-    let { name, image } = userData;
+    let { name, image } = wallet;
     if (!name.trim()) {
       Alert.alert("User", "Please fill all the fields");
       return;
     }
     setLoading(true);
-    const res = await updateUser(user?.uid as string, userData);
+    const res = await updateUser(user?.uid as string, wallet);
     setLoading(false);
 
     if (res.success) {
@@ -88,42 +74,31 @@ const WalletModal = () => {
     <ModalWrapper>
       <View style={styles.container}>
         <Header
-          title="Update Profile"
+          title="New Wallet"
           leftIcon={<BackButton />}
           style={{ marginBottom: spacingY._10 }}
         />
         {/* Form */}
         <ScrollView contentContainerStyle={styles.form}>
-          <View style={styles.avatarContainer}>
-            <Image
-              source={getProfileImage(userData.image)}
-              style={styles.avatar}
-              contentFit="cover"
-              transition={100}
+          <View style={styles.inputContainer}>
+            <Typo color={colors.neutral200}>Wallet Name</Typo>
+            <Input
+              placeholder="Salary"
+              value={wallet.name}
+              onChangeText={(value) => setWallet({ ...wallet, name: value })}
             />
-            <TouchableOpacity onPress={onPickImage} style={styles.editIcon}>
-              <Icons.Pencil
-                size={verticalScale(20)}
-                color={colors.neutral800}
-              />
-            </TouchableOpacity>
           </View>
           <View style={styles.inputContainer}>
-            <Typo color={colors.neutral200}>Name</Typo>
-            <Input
-              placeholder="Name"
-              value={userData.name}
-              onChangeText={(value) =>
-                setUserData({ ...userData, name: value })
-              }
-            />
+            <Typo color={colors.neutral200}>Wallet Icon</Typo>
+            {/* image input */}
+            <ImageUpload />
           </View>
         </ScrollView>
       </View>
       <View style={styles.footer}>
         <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
           <Typo color={colors.black} fontWeight={"700"}>
-            Update
+            Add Wallet
           </Typo>
         </Button>
       </View>
