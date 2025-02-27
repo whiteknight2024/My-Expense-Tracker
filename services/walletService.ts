@@ -34,8 +34,8 @@ export const createOrUpdateWallet = async (
     }
     //create document reference for wallet
     const walletRef = walletData?.id
-      ? doc(firestore, "wallets", walletData?.id)
-      : doc(collection(firestore, "wallets"));
+      ? doc(firestore, "wallets", walletData?.id) //update
+      : doc(collection(firestore, "wallets")); //new wallet
 
     await setDoc(walletRef, walletToSave, { merge: true }); //merge if updating
     return { success: true, data: { ...walletToSave, id: walletRef.id } };
