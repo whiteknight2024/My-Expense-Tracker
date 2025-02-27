@@ -27,7 +27,7 @@ import ImageUpload from "@/components/ImageUpload";
 import { createOrUpdateWallet } from "@/services/walletService";
 
 //7.42 video 8
-//16.13 vid 9s
+//18.21 vid 9s
 const WalletModal = () => {
   const { user, updateUserData } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -82,7 +82,7 @@ const WalletModal = () => {
     <ModalWrapper>
       <View style={styles.container}>
         <Header
-          title="New Wallet"
+          title={oldWallet?.id ? "Update Wallet" : "New Wallet"}
           leftIcon={<BackButton />}
           style={{ marginBottom: spacingY._10 }}
         />
@@ -111,7 +111,7 @@ const WalletModal = () => {
       <View style={styles.footer}>
         <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
           <Typo color={colors.black} fontWeight={"700"}>
-            Add Wallet
+            {oldWallet?.id ? "Update Wallet" : "Add Wallet"}
           </Typo>
         </Button>
       </View>
