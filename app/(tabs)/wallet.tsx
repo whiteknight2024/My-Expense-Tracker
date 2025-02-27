@@ -6,9 +6,20 @@ import { colors, radius, spacingX, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
 import * as Icons from "phosphor-react-native";
 import { useRouter } from "expo-router";
+import useFetchData from "@/hooks/useFetchData";
+import { WalletType } from "@/types";
+import { orderBy, where } from "firebase/firestore";
+import { useAuth } from "@/contexts/authContext";
 
 const Wallet = () => {
   const router = useRouter();
+  const { user } = useAuth();
+
+  const { data, error, loading } = useFetchData<WalletType>("wallets", [
+    where("uid", "==", user?.uid),
+    orderBy("created", "desc"),
+  ]);
+
   const getTotalBalance = () => {
     return 2344;
   };
@@ -44,7 +55,6 @@ const Wallet = () => {
             </TouchableOpacity>
           </View>
           {/* wallet list */}
-          
         </View>
       </View>
     </ScreenWrapper>
