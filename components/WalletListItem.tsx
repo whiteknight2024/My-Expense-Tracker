@@ -5,6 +5,7 @@ import { WalletType } from "@/types";
 import { Router } from "expo-router";
 import { verticalScale } from "@/utils/styling";
 import { colors, radius, spacingX } from "@/constants/theme";
+import { Image } from "expo-image";
 
 const WalletListItem = ({
   item,
@@ -17,7 +18,16 @@ const WalletListItem = ({
 }) => {
   return (
     <View>
-      <TouchableOpacity></TouchableOpacity>
+      <TouchableOpacity style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image
+            style={{ flex: 1 }}
+            source={item?.image}
+            contentFit="cover"
+            transition={100}
+          />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
