@@ -19,7 +19,7 @@ import { useAuth } from "@/contexts/authContext";
 import Loading from "@/components/Loading";
 import WalletListItem from "@/components/WalletListItem";
 
-//7.27
+//13.41
 const Wallet = () => {
   const router = useRouter();
   const { user } = useAuth();
@@ -37,7 +37,7 @@ const Wallet = () => {
   console.log("wallets: ", wallets.length);
 
   const getTotalBalance = () => {
-    return 2344;
+    return 12344;
   };
   return (
     <ScreenWrapper style={{ backgroundColor: colors.black }}>
