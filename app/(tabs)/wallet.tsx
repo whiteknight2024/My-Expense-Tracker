@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
@@ -10,7 +16,10 @@ import useFetchData from "@/hooks/useFetchData";
 import { WalletType } from "@/types";
 import { orderBy, where } from "firebase/firestore";
 import { useAuth } from "@/contexts/authContext";
+import Loading from "@/components/Loading";
+import WalletListItem from "@/components/WalletListItem";
 
+//7.27
 const Wallet = () => {
   const router = useRouter();
   const { user } = useAuth();
@@ -26,6 +35,7 @@ const Wallet = () => {
 
   //check if getting wallets
   console.log("wallets: ", wallets.length);
+
   const getTotalBalance = () => {
     return 2344;
   };
@@ -61,6 +71,16 @@ const Wallet = () => {
             </TouchableOpacity>
           </View>
           {/* wallet list */}
+          {loading && <Loading />}
+          <FlatList
+            data={wallets}
+            renderItem={({ item, index }) => {
+              return (
+                <WalletListItem item={item} index={index} router={router} />
+              );
+            }}
+            contentContainerStyle={styles.listStyle}
+          />
         </View>
       </View>
     </ScreenWrapper>
