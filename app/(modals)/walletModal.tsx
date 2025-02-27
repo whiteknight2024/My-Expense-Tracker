@@ -66,7 +66,7 @@ const WalletModal = () => {
     };
 
     //TODO include the id of the wallet for updating
-
+    if (oldWallet?.id) data.id = oldWallet?.id;
     setLoading(true);
     const res = await createOrUpdateWallet(data);
     setLoading(false);
