@@ -21,16 +21,21 @@ import Input from "@/components/Input";
 import { UserDataType, WalletType } from "@/types";
 import Button from "@/components/Button";
 import { updateUser } from "@/services/userService";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import ImageUpload from "@/components/ImageUpload";
 import { createOrUpdateWallet } from "@/services/walletService";
 
 //7.42 video 8
+//16.13 vid 9s
 const WalletModal = () => {
   const { user, updateUserData } = useAuth();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  const oldWallet: { name: string; image: string; id: string } =
+    useLocalSearchParams();
+  console.log("old wallet: ", oldWallet);
 
   const [wallet, setWallet] = useState<WalletType>({
     name: "",
