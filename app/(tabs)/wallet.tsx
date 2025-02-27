@@ -15,11 +15,17 @@ const Wallet = () => {
   const router = useRouter();
   const { user } = useAuth();
 
-  const { data, error, loading } = useFetchData<WalletType>("wallets", [
+  const {
+    data: wallets,
+    error,
+    loading,
+  } = useFetchData<WalletType>("wallets", [
     where("uid", "==", user?.uid),
     orderBy("created", "desc"),
   ]);
 
+  //check if getting wallets
+  console.log("wallets: ", wallets.length);
   const getTotalBalance = () => {
     return 2344;
   };
