@@ -4,9 +4,10 @@ import { ImageUploadProps } from "@/types";
 import * as Icons from "phosphor-react-native";
 import { colors, radius } from "@/constants/theme";
 import Typo from "./Typo";
-import { verticalScale } from "@/utils/styling";
+import { scale, verticalScale } from "@/utils/styling";
 import { Image } from "expo-image";
 import { getFilePath } from "@/services/imageService";
+import * as ImagePicker from "expo-image-picker";
 
 const ImageUpload = ({
   file = null,
@@ -16,10 +17,25 @@ const ImageUpload = ({
   imageStyle,
   placeholder = "",
 }: ImageUploadProps) => {
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      //allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.5,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      onSelect(result.assets[0]);
+    }
+  };
   return (
     <View>
       {!file && (
         <TouchableOpacity
+          onPress={pickImage}
           style={[styles.inputContainer, containerStyle && containerStyle]}
         >
           <Icons.UploadSimple color={colors.neutral200} />
@@ -35,6 +51,13 @@ const ImageUpload = ({
             contentFit="cover"
             transition={100}
           />
+          <TouchableOpacity style={styles.deleteIcon}>
+            <Icons.XCircle
+              size={verticalScale(24)}
+              weight="fill"
+              color={colors.white}
+            />
+          </TouchableOpacity>
         </View>
       )}
     </View>
@@ -56,5 +79,12 @@ const styles = StyleSheet.create({
     borderColor: colors.neutral500,
     borderStyle: "dashed",
   },
-  image: {},
+  image: {
+    height: scale(150),
+    width: scale(150),
+    borderRadius: radius._15,
+    borderCurve: "continuous",
+    overflow: "hidden",
+  },
+  deleteIcon: {},
 });
