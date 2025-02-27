@@ -9,6 +9,8 @@ import { Image } from "expo-image";
 import { getFilePath } from "@/services/imageService";
 import * as ImagePicker from "expo-image-picker";
 
+//17.10
+
 const ImageUpload = ({
   file = null,
   onSelect,
@@ -51,7 +53,7 @@ const ImageUpload = ({
             contentFit="cover"
             transition={100}
           />
-          <TouchableOpacity style={styles.deleteIcon}>
+          <TouchableOpacity style={styles.deleteIcon} onPress={onClear}>
             <Icons.XCircle
               size={verticalScale(24)}
               weight="fill"
