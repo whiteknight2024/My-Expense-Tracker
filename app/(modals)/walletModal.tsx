@@ -35,7 +35,17 @@ const WalletModal = () => {
 
   const oldWallet: { name: string; image: string; id: string } =
     useLocalSearchParams();
-  console.log("old wallet: ", oldWallet);
+  //console.log("old wallet: ", oldWallet);
+
+  useEffect(() => {
+    //update
+    if (oldWallet?.id) {
+      setWallet({
+        name: oldWallet?.name,
+        image: oldWallet?.image,
+      });
+    }
+  }, []);
 
   const [wallet, setWallet] = useState<WalletType>({
     name: "",
