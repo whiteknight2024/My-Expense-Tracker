@@ -3,6 +3,8 @@ import React from "react";
 import Typo from "./Typo";
 import { WalletType } from "@/types";
 import { Router } from "expo-router";
+import { verticalScale } from "@/utils/styling";
+import { colors, radius, spacingX } from "@/constants/theme";
 
 const WalletListItem = ({
   item,
@@ -22,4 +24,25 @@ const WalletListItem = ({
 
 export default WalletListItem;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: verticalScale(17),
+    // padding: spacingX._15,
+  },
+  imageContainer: {
+    height: verticalScale(45),
+    width: verticalScale(45),
+    borderWidth: 1,
+    borderColor: colors.neutral600,
+    borderRadius: radius._12,
+    borderCurve: "continuous",
+    overflow: "hidden",
+  },
+  nameContainer: {
+    flex: 1,
+    gap: 2,
+    marginLeft: spacingX._10,
+  },
+});
