@@ -67,6 +67,7 @@ const WalletModal = () => {
 
     //TODO include the id of the wallet for updating
     if (oldWallet?.id) data.id = oldWallet?.id;
+
     setLoading(true);
     const res = await createOrUpdateWallet(data);
     setLoading(false);
@@ -78,6 +79,9 @@ const WalletModal = () => {
     }
   };
 
+  const showDeleteAlert = () => {
+    Alert.alert("Delete Wallet", "Are you sure you want to Delete?");
+  };
   return (
     <ModalWrapper>
       <View style={styles.container}>
@@ -109,6 +113,21 @@ const WalletModal = () => {
         </ScrollView>
       </View>
       <View style={styles.footer}>
+        {oldWallet?.id && (
+          <Button
+            onPress={showDeleteAlert}
+            style={{
+              backgroundColor: colors.rose,
+              paddingHorizontal: spacingX._15,
+            }}
+          >
+            <Icons.Trash
+              color={colors.white}
+              size={verticalScale(24)}
+              weight="bold"
+            />
+          </Button>
+        )}
         <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
           <Typo color={colors.black} fontWeight={"700"}>
             {oldWallet?.id ? "Update Wallet" : "Add Wallet"}
