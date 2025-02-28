@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 // import Button from "@/components/Button";
 import Typo from "@/components/Typo";
@@ -18,8 +18,14 @@ const Home = () => {
         {/* header */}
         <View style={styles.header}>
           <View style={{ gap: 4 }}>
-            <Typo>Hello,</Typo>
+            <Typo size={16} color={colors.neutral400}>
+              Hello,
+            </Typo>
+            <Typo size={20} fontWeight={"500"}>
+              {user?.name}
+            </Typo>
           </View>
+          <TouchableOpacity></TouchableOpacity>
         </View>
       </View>
     </ScreenWrapper>
