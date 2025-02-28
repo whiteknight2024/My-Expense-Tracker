@@ -52,7 +52,7 @@ const Home = () => {
             <HomeCard />
           </View>
 
-          <TransactionList />
+          <TransactionList title="Recent Transactions" />
         </ScrollView>
       </View>
     </ScreenWrapper>
