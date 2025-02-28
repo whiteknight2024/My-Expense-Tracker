@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, StatusBar } from "react-native";
 import React from "react";
 import Typo from "./Typo";
-import { TransactionListType } from "@/types";
+import { TransactionItemProps, TransactionListType } from "@/types";
 import { colors, radius, spacingX, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
+import { FlashList } from "@shopify/flash-list";
 
 const TransactionList = ({
   data,
@@ -11,6 +12,10 @@ const TransactionList = ({
   loading,
   emptyListMessage,
 }: TransactionListType) => {
+  const handleClick = () => {
+    //to do open transaction details in a modal
+  };
+
   return (
     <View style={styles.container}>
       {title && (
@@ -18,6 +23,31 @@ const TransactionList = ({
           {title}
         </Typo>
       )}
+      <View style={styles.list}>
+        <FlashList
+          data={[1, 2, 3]}
+          renderItem={({ item, index }) => (
+            <TransactionItem
+              item={item}
+              index={index}
+              handleClick={handleClick}
+            />
+          )}
+          estimatedItemSize={60}
+        />
+      </View>
+    </View>
+  );
+};
+
+const TransactionItem = ({
+  item,
+  index,
+  handleClick,
+}: TransactionItemProps) => {
+  return (
+    <View>
+      <Typo>Transaction Item</Typo>
     </View>
   );
 };
