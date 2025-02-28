@@ -26,7 +26,7 @@ const HomeCard = () => {
               weight="fill"
             />
           </View>
-          <Typo color={colors.black} size={30} fontWeight={"bold"}>
+          <Typo color={colors.black} size={24} fontWeight={"bold"}>
             $2300.00
           </Typo>
         </View>
@@ -42,12 +42,12 @@ const HomeCard = () => {
                   weight="bold"
                 />
               </View>
-              <Typo size={16} color={colors.neutral700} fontWeight={"500"}>
+              <Typo size={15} color={colors.neutral700} fontWeight={"500"}>
                 Income
               </Typo>
             </View>
             <View style={{ alignSelf: "center" }}>
-              <Typo size={17} color={colors.green} fontWeight={"600"}>
+              <Typo size={16} color={colors.green} fontWeight={"600"}>
                 $ 2342
               </Typo>
             </View>
@@ -62,12 +62,12 @@ const HomeCard = () => {
                   weight="bold"
                 />
               </View>
-              <Typo size={16} color={colors.neutral700} fontWeight={"500"}>
+              <Typo size={15} color={colors.neutral700} fontWeight={"500"}>
                 Expense
               </Typo>
             </View>
             <View style={{ alignSelf: "center" }}>
-              <Typo size={17} color={colors.rose} fontWeight={"600"}>
+              <Typo size={16} color={colors.rose} fontWeight={"600"}>
                 $ 23424
               </Typo>
             </View>

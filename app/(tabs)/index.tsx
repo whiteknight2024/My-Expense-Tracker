@@ -15,6 +15,7 @@ import { verticalScale } from "@/utils/styling";
 import { useAuth } from "@/contexts/authContext";
 import * as Icons from "phosphor-react-native";
 import HomeCard from "@/components/HomeCard";
+import TransactionList from "@/components/TransactionList";
 
 //22.58 add logout button
 //2.50 video 10 touchableopacity
@@ -50,6 +51,8 @@ const Home = () => {
           <View>
             <HomeCard />
           </View>
+
+          <TransactionList />
         </ScrollView>
       </View>
     </ScreenWrapper>
