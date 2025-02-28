@@ -53,7 +53,7 @@ const Home = () => {
           </View>
 
           <TransactionList
-            data={[]}
+            data={[1, 2, 3]}
             loading={false}
             title="Recent Transactions"
             emptyListMessage="No Transactions Added Yet!"
