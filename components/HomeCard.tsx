@@ -32,6 +32,7 @@ const HomeCard = () => {
         </View>
         {/* total expense and income */}
         <View style={styles.stats}>
+          {/* Income */}
           <View style={{ gap: verticalScale(5) }}>
             <View style={styles.incomeExpense}>
               <View style={styles.statsIcon}>
@@ -48,6 +49,26 @@ const HomeCard = () => {
             <View style={{ alignSelf: "center" }}>
               <Typo size={17} color={colors.green} fontWeight={"600"}>
                 $ 2342
+              </Typo>
+            </View>
+          </View>
+          {/* Expense */}
+          <View style={{ gap: verticalScale(5) }}>
+            <View style={styles.incomeExpense}>
+              <View style={styles.statsIcon}>
+                <Icons.ArrowUp
+                  size={verticalScale(15)}
+                  color={colors.black}
+                  weight="bold"
+                />
+              </View>
+              <Typo size={16} color={colors.neutral700} fontWeight={"500"}>
+                Expense
+              </Typo>
+            </View>
+            <View style={{ alignSelf: "center" }}>
+              <Typo size={17} color={colors.rose} fontWeight={"600"}>
+                $ 23424
               </Typo>
             </View>
           </View>
