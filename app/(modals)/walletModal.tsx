@@ -24,7 +24,7 @@ import { updateUser } from "@/services/userService";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import ImageUpload from "@/components/ImageUpload";
-import { createOrUpdateWallet } from "@/services/walletService";
+import { createOrUpdateWallet, deleteWallet } from "@/services/walletService";
 
 //7.42 video 8
 //18.21 vid 9s
@@ -83,7 +83,13 @@ const WalletModal = () => {
     console.log("Delete Called for Wallet: ", oldWallet?.id);
     if (!oldWallet?.id) return; //no wallet to delete
     setLoading(true);
-    const res = deleteWallet;
+    const res = await deleteWallet(oldWallet?.id);
+    setLoading(false);
+    if (res.success) {
+      router.back();
+    } else {
+      Alert.alert("Wallet", res.msg);
+    }
   };
 
   const showDeleteAlert = () => {
