@@ -79,9 +79,29 @@ const WalletModal = () => {
     }
   };
 
-  const showDeleteAlert = () => {
-    Alert.alert("Delete Wallet", "Are you sure you want to Delete?");
+  const onDelete = async () => {
+    console.log("Delete Called for Wallet: ", oldWallet?.id);
   };
+
+  const showDeleteAlert = () => {
+    Alert.alert(
+      "Confirm Delete Wallet",
+      "Are you sure you want to Delete?\nThis action will remove all Transactions related to this wallet!",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Delete"),
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          onPress: () => onDelete(),
+          style: "destructive",
+        },
+      ]
+    );
+  };
+
   return (
     <ModalWrapper>
       <View style={styles.container}>
