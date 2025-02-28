@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 // import Button from "@/components/Button";
 import Typo from "@/components/Typo";
@@ -8,6 +14,7 @@ import { colors, spacingX, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
 import { useAuth } from "@/contexts/authContext";
 import * as Icons from "phosphor-react-native";
+import HomeCard from "@/components/HomeCard";
 
 //22.58 add logout button
 //2.50 video 10 touchableopacity
@@ -35,6 +42,15 @@ const Home = () => {
             />
           </TouchableOpacity>
         </View>
+        <ScrollView
+          contentContainerStyle={styles.scrollViewStyle}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* Card */}
+          <View>
+            <HomeCard />
+          </View>
+        </ScrollView>
       </View>
     </ScreenWrapper>
   );
