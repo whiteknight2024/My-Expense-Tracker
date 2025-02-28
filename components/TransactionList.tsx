@@ -25,7 +25,7 @@ const TransactionList = ({
       )}
       <View style={styles.list}>
         <FlashList
-          data={[1, 2, 3]}
+          data={data}
           renderItem={({ item, index }) => (
             <TransactionItem
               item={item}
@@ -36,6 +36,15 @@ const TransactionList = ({
           estimatedItemSize={60}
         />
       </View>
+      {!loading && data.length == 0 && (
+        <Typo
+          size={15}
+          color={colors.neutral400}
+          style={{ textAlign: "center", marginTop: spacingX._15 }}
+        >
+          {emptyListMessage}
+        </Typo>
+      )}
     </View>
   );
 };
