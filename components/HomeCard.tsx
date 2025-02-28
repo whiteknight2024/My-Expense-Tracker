@@ -29,6 +29,23 @@ const HomeCard = () => {
             $2300.00
           </Typo>
         </View>
+        {/* total expense and income */}
+        <View style={styles.stats}>
+          <View style={{ gap: verticalScale(5) }}>
+            <View style={styles.incomeExpense}>
+              <View style={styles.statsIcon}>
+                <Icons.ArrowDown
+                  size={verticalScale(15)}
+                  color={colors.black}
+                  weight="bold"
+                />
+              </View>
+              <Typo size={16} color={colors.neutral700} fontWeight={"500"}>
+                Income
+              </Typo>
+            </View>
+          </View>
+        </View>
       </View>
     </ImageBackground>
   );
