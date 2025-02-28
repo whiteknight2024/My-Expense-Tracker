@@ -5,6 +5,7 @@ import { TransactionItemProps, TransactionListType } from "@/types";
 import { colors, radius, spacingX, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
 import { FlashList } from "@shopify/flash-list";
+import Loading from "./Loading";
 
 const TransactionList = ({
   data,
@@ -44,6 +45,12 @@ const TransactionList = ({
         >
           {emptyListMessage}
         </Typo>
+      )}
+
+      {loading && (
+        <View style={{ top: verticalScale(100) }}>
+          <Loading />
+        </View>
       )}
     </View>
   );
