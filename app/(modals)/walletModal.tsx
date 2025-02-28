@@ -81,6 +81,9 @@ const WalletModal = () => {
 
   const onDelete = async () => {
     console.log("Delete Called for Wallet: ", oldWallet?.id);
+    if (!oldWallet?.id) return; //no wallet to delete
+    setLoading(true);
+    const res = deleteWallet;
   };
 
   const showDeleteAlert = () => {
