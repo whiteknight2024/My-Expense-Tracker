@@ -5,6 +5,7 @@ import { colors, spacingX, spacingY } from "@/constants/theme";
 import { scale, verticalScale } from "@/utils/styling";
 import * as Icons from "phosphor-react-native";
 
+//9.08
 const HomeCard = () => {
   return (
     <ImageBackground
@@ -42,6 +43,11 @@ const HomeCard = () => {
               </View>
               <Typo size={16} color={colors.neutral700} fontWeight={"500"}>
                 Income
+              </Typo>
+            </View>
+            <View style={{ alignSelf: "center" }}>
+              <Typo size={17} color={colors.green} fontWeight={"600"}>
+                $ 2342
               </Typo>
             </View>
           </View>
