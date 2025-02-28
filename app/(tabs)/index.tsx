@@ -7,8 +7,10 @@ import ScreenWrapper from "@/components/ScreenWrapper";
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
 import { useAuth } from "@/contexts/authContext";
+import * as Icons from "phosphor-react-native";
 
 //22.58 add logout button
+//2.50 video 10 touchableopacity
 const Home = () => {
   const { user } = useAuth();
 
@@ -25,7 +27,13 @@ const Home = () => {
               {user?.name}
             </Typo>
           </View>
-          <TouchableOpacity></TouchableOpacity>
+          <TouchableOpacity style={styles.searchIcon}>
+            <Icons.MagnifyingGlass
+              size={verticalScale(22)}
+              color={colors.neutral200}
+              weight="bold"
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </ScreenWrapper>
