@@ -17,11 +17,13 @@ import * as Icons from "phosphor-react-native";
 import HomeCard from "@/components/HomeCard";
 import TransactionList from "@/components/TransactionList";
 import Button from "@/components/Button";
+import { useRouter } from "expo-router";
 
 //22.58 add logout button
 //2.50 video 10 touchableopacity
 const Home = () => {
   const { user } = useAuth();
+  const router = useRouter();
 
   return (
     <ScreenWrapper>
@@ -60,7 +62,10 @@ const Home = () => {
             emptyListMessage="No Transactions Added Yet!"
           />
         </ScrollView>
-        <Button style={styles.floatingButton}>
+        <Button
+          style={styles.floatingButton}
+          onPress={() => router.push("/(modals)/transactionModal")}
+        >
           <Icons.Plus
             color={colors.black}
             weight="bold"
