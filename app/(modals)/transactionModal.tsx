@@ -1,5 +1,6 @@
 import {
   Alert,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -262,6 +263,18 @@ const TransactionModal = () => {
                   {(transaction.date as Date).toLocaleDateString()}
                 </Typo>
               </Pressable>
+            )}
+            {showDatePicker && (
+              <View style={Platform.OS == "ios" && styles.iosDatePicker}>
+                <DateTimePicker
+                  themeVariant="dark"
+                  value={transaction.date as Date}
+                  textColor={colors.white}
+                  mode="date"
+                  display="calendar"
+                  onChange={onDateChange}
+                />
+              </View>
             )}
           </View>
 
