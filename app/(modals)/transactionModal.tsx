@@ -153,8 +153,9 @@ const TransactionModal = () => {
             <Typo color={colors.neutral200}>Type</Typo>
             {/* dropdown */}
             <Dropdown
+              activeColor={colors.neutral700}
               style={styles.dropdownContainer}
-              //placeholderStyle={styles.dropdownPlaceholder}
+              placeholderStyle={styles.dropdownPlaceholder}
               selectedTextStyle={styles.dropdownSelectedText}
               //inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.dropdownIcon}
