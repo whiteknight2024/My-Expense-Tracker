@@ -32,7 +32,9 @@ import { Dropdown } from "react-native-element-dropdown";
 import { expenseCategories, transactionTypes } from "@/constants/data";
 import useFetchData from "@/hooks/useFetchData";
 import { orderBy, where } from "firebase/firestore";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 
 const TransactionModal = () => {
   const { user } = useAuth();
@@ -55,6 +57,12 @@ const TransactionModal = () => {
   const oldTransaction: { name: string; image: string; id: string } =
     useLocalSearchParams();
   //console.log("old wallet: ", oldTransaction);
+
+  const onDateChange = (event: DateTimePickerEvent, selectedDate: Date) => {
+    const currentDate = selectedDate || transaction.date;
+    setTransaction({ ...transaction, date: currentDate });
+    setShowDatePicker(false);
+  };
 
   //   useEffect(() => {
   //     //update
