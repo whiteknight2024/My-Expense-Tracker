@@ -1,5 +1,6 @@
 import {
   Alert,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -30,11 +31,13 @@ import { Dropdown } from "react-native-element-dropdown";
 import { expenseCategories, transactionTypes } from "@/constants/data";
 import useFetchData from "@/hooks/useFetchData";
 import { orderBy, where } from "firebase/firestore";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const TransactionModal = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const {
     data: wallets,
@@ -248,6 +251,19 @@ const TransactionModal = () => {
           )}
 
           {/* date picker */}
+          <View style={styles.inputContainer}>
+            <Typo color={colors.neutral200}>Date</Typo>
+            {!showDatePicker && (
+              <Pressable
+                style={styles.dateInput}
+                onPress={() => setShowDatePicker(true)}
+              >
+                <Typo size={14}>
+                  {(transaction.date as Date).toLocaleDateString()}
+                </Typo>
+              </Pressable>
+            )}
+          </View>
 
           <View style={styles.inputContainer}>
             <Typo color={colors.neutral200}>Transaction Icon</Typo>
@@ -393,4 +409,4 @@ const styles = StyleSheet.create({
     tintColor: colors.neutral300,
   },
 });
-//14.29
+//19.41
