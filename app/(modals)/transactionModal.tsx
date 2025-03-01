@@ -27,7 +27,7 @@ import ImageUpload from "@/components/ImageUpload";
 import { createOrUpdateWallet, deleteWallet } from "@/services/walletService";
 
 import { Dropdown } from "react-native-element-dropdown";
-import { transactionTypes } from "@/constants/data";
+import { expenseCategories, transactionTypes } from "@/constants/data";
 import useFetchData from "@/hooks/useFetchData";
 import { orderBy, where } from "firebase/firestore";
 
@@ -213,38 +213,41 @@ const TransactionModal = () => {
           </View>
 
           {/* dropdown expense categories 15.03*/}
+          {transaction.type == "expense" && (
+            <View style={styles.inputContainer}>
+              <Typo color={colors.neutral200}>Expense Category</Typo>
+              {/* dropdown */}
+              <Dropdown
+                activeColor={colors.neutral700}
+                style={styles.dropdownContainer}
+                placeholderStyle={styles.dropdownPlaceholder}
+                selectedTextStyle={styles.dropdownSelectedText}
+                //inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.dropdownIcon}
+                data={Object.values(expenseCategories)}
+                //search
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                itemTextStyle={styles.dropdownItemText}
+                itemContainerStyle={styles.dropdownItemContainer}
+                containerStyle={styles.dropdownListContainer}
+                placeholder={"Select Category"}
+                //searchPlaceholder="Search..."
+                value={transaction.category}
+                //onFocus={() => setIsFocus(true)}
+                //onBlur={() => setIsFocus(false)}
+                onChange={(item) => {
+                  setTransaction({
+                    ...transaction,
+                    category: item.value || "",
+                  });
+                }}
+              />
+            </View>
+          )}
 
-          <View style={styles.inputContainer}>
-            <Typo color={colors.neutral200}>Expense Category</Typo>
-            {/* dropdown */}
-            <Dropdown
-              activeColor={colors.neutral700}
-              style={styles.dropdownContainer}
-              placeholderStyle={styles.dropdownPlaceholder}
-              selectedTextStyle={styles.dropdownSelectedText}
-              //inputSearchStyle={styles.inputSearchStyle}
-              iconStyle={styles.dropdownIcon}
-              data={wallets.map((wallet) => ({
-                label: `${wallet?.name} ($${wallet.amount})`,
-                value: wallet?.id,
-              }))}
-              //search
-              maxHeight={300}
-              labelField="label"
-              valueField="value"
-              itemTextStyle={styles.dropdownItemText}
-              itemContainerStyle={styles.dropdownItemContainer}
-              containerStyle={styles.dropdownListContainer}
-              placeholder={"Select Wallet"}
-              //searchPlaceholder="Search..."
-              value={transaction.walletId}
-              //onFocus={() => setIsFocus(true)}
-              //onBlur={() => setIsFocus(false)}
-              onChange={(item) => {
-                setTransaction({ ...transaction, walletId: item.value || "" });
-              }}
-            />
-          </View>
+          {/* date picker */}
 
           <View style={styles.inputContainer}>
             <Typo color={colors.neutral200}>Transaction Icon</Typo>
