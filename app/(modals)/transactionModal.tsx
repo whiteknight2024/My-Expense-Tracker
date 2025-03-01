@@ -141,6 +141,7 @@ const TransactionModal = () => {
           contentContainerStyle={styles.form}
           showsVerticalScrollIndicator={false}
         >
+          {/* transaction type */}
           <View style={styles.inputContainer}>
             <Typo color={colors.neutral200}>Type</Typo>
             {/* dropdown */}
@@ -178,6 +179,7 @@ const TransactionModal = () => {
             />
           </View>
 
+          {/* wallet input */}
           <View style={styles.inputContainer}>
             <Typo color={colors.neutral200}>Wallet</Typo>
             {/* dropdown */}
@@ -207,18 +209,42 @@ const TransactionModal = () => {
               onChange={(item) => {
                 setTransaction({ ...transaction, walletId: item.value || "" });
               }}
-              //   renderLeftIcon={() => (
-              //     <AntDesign
-              //       style={styles.icon}
-              //       color={isFocus ? "blue" : "black"}
-              //       name="Safety"
-              //       size={20}
-              //     />
-              //   )}
             />
           </View>
 
-          {/* dropdown expense categories */}
+          {/* dropdown expense categories 15.03*/}
+
+          <View style={styles.inputContainer}>
+            <Typo color={colors.neutral200}>Expense Category</Typo>
+            {/* dropdown */}
+            <Dropdown
+              activeColor={colors.neutral700}
+              style={styles.dropdownContainer}
+              placeholderStyle={styles.dropdownPlaceholder}
+              selectedTextStyle={styles.dropdownSelectedText}
+              //inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.dropdownIcon}
+              data={wallets.map((wallet) => ({
+                label: `${wallet?.name} ($${wallet.amount})`,
+                value: wallet?.id,
+              }))}
+              //search
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              itemTextStyle={styles.dropdownItemText}
+              itemContainerStyle={styles.dropdownItemContainer}
+              containerStyle={styles.dropdownListContainer}
+              placeholder={"Select Wallet"}
+              //searchPlaceholder="Search..."
+              value={transaction.walletId}
+              //onFocus={() => setIsFocus(true)}
+              //onBlur={() => setIsFocus(false)}
+              onChange={(item) => {
+                setTransaction({ ...transaction, walletId: item.value || "" });
+              }}
+            />
+          </View>
 
           <View style={styles.inputContainer}>
             <Typo color={colors.neutral200}>Transaction Icon</Typo>
