@@ -28,11 +28,25 @@ import { createOrUpdateWallet, deleteWallet } from "@/services/walletService";
 
 import { Dropdown } from "react-native-element-dropdown";
 import { transactionTypes } from "@/constants/data";
+import useFetchData from "@/hooks/useFetchData";
+import { orderBy, where } from "firebase/firestore";
 
 const TransactionModal = () => {
-  const { user, updateUserData } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  const {
+    data: wallets,
+    error: walletError,
+    loading: walletLoading,
+  } = useFetchData<WalletType>("wallets", [
+    where("uid", "==", user?.uid),
+    orderBy("created", "desc"),
+  ]);
+
+  //check if getting wallets
+  console.log("wallets: ", wallets.length);
 
   const oldTransaction: { name: string; image: string; id: string } =
     useLocalSearchParams();
@@ -163,6 +177,47 @@ const TransactionModal = () => {
               //   )}
             />
           </View>
+
+          <View style={styles.inputContainer}>
+            <Typo color={colors.neutral200}>Wallet</Typo>
+            {/* dropdown */}
+            <Dropdown
+              activeColor={colors.neutral700}
+              style={styles.dropdownContainer}
+              placeholderStyle={styles.dropdownPlaceholder}
+              selectedTextStyle={styles.dropdownSelectedText}
+              //inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.dropdownIcon}
+              data={wallets.map((wallet) => ({
+                label: `${wallet?.name} ($${wallet.amount})`,
+                value: wallet?.id,
+              }))}
+              //search
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              itemTextStyle={styles.dropdownItemText}
+              itemContainerStyle={styles.dropdownItemContainer}
+              containerStyle={styles.dropdownListContainer}
+              placeholder={"Select Wallet"}
+              //searchPlaceholder="Search..."
+              value={transaction.walletId}
+              //onFocus={() => setIsFocus(true)}
+              //onBlur={() => setIsFocus(false)}
+              onChange={(item) => {
+                setTransaction({ ...transaction, walletId: item.value });
+              }}
+              //   renderLeftIcon={() => (
+              //     <AntDesign
+              //       style={styles.icon}
+              //       color={isFocus ? "blue" : "black"}
+              //       name="Safety"
+              //       size={20}
+              //     />
+              //   )}
+            />
+          </View>
+
           <View style={styles.inputContainer}>
             <Typo color={colors.neutral200}>Transaction Icon</Typo>
             {/* image input */}
