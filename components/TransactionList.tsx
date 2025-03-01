@@ -13,6 +13,7 @@ import { verticalScale } from "@/utils/styling";
 import { FlashList } from "@shopify/flash-list";
 import Loading from "./Loading";
 import { expenseCategories } from "@/constants/data";
+import Animated, { FadeInDown } from "react-native-reanimated";
 
 const TransactionList = ({
   data,
@@ -72,8 +73,17 @@ const TransactionItem = ({
   const IconComponent = category.icon;
 
   return (
-    <View>
-      <TouchableOpacity style={styles.row}>
+    <Animated.View
+      entering={FadeInDown.delay(index * 90)
+        .springify()
+        .damping(14)}
+    >
+      <TouchableOpacity
+        style={styles.row}
+        onPress={() => {
+          handleClick(item);
+        }}
+      >
         <View style={[styles.icon, { backgroundColor: category.bgColor }]}>
           {IconComponent && (
             <IconComponent
@@ -102,7 +112,7 @@ const TransactionItem = ({
           </Typo>
         </View>
       </TouchableOpacity>
-    </View>
+    </Animated.View>
   );
 };
 

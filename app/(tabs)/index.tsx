@@ -16,6 +16,7 @@ import { useAuth } from "@/contexts/authContext";
 import * as Icons from "phosphor-react-native";
 import HomeCard from "@/components/HomeCard";
 import TransactionList from "@/components/TransactionList";
+import Button from "@/components/Button";
 
 //22.58 add logout button
 //2.50 video 10 touchableopacity
@@ -53,12 +54,19 @@ const Home = () => {
           </View>
 
           <TransactionList
-            data={[1, 2, 3]}
+            data={[1, 2, 3, 4, 5]}
             loading={false}
             title="Recent Transactions"
             emptyListMessage="No Transactions Added Yet!"
           />
         </ScrollView>
+        <Button style={styles.floatingButton}>
+          <Icons.Plus
+            color={colors.black}
+            weight="bold"
+            size={verticalScale(24)}
+          />
+        </Button>
       </View>
     </ScreenWrapper>
   );
