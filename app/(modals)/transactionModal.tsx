@@ -205,7 +205,7 @@ const TransactionModal = () => {
               //onFocus={() => setIsFocus(true)}
               //onBlur={() => setIsFocus(false)}
               onChange={(item) => {
-                setTransaction({ ...transaction, walletId: item.value });
+                setTransaction({ ...transaction, walletId: item.value || "" });
               }}
               //   renderLeftIcon={() => (
               //     <AntDesign
@@ -217,6 +217,8 @@ const TransactionModal = () => {
               //   )}
             />
           </View>
+
+          {/* dropdown expense categories */}
 
           <View style={styles.inputContainer}>
             <Typo color={colors.neutral200}>Transaction Icon</Typo>
@@ -362,4 +364,4 @@ const styles = StyleSheet.create({
     tintColor: colors.neutral300,
   },
 });
-//7.20
+//14.29
