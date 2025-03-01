@@ -153,21 +153,24 @@ const TransactionModal = () => {
             <Typo color={colors.neutral200}>Type</Typo>
             {/* dropdown */}
             <Dropdown
-              style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-              placeholderStyle={styles.placeholderStyle}
-              selectedTextStyle={styles.selectedTextStyle}
-              inputSearchStyle={styles.inputSearchStyle}
-              iconStyle={styles.iconStyle}
+              style={styles.dropdownContainer}
+              //placeholderStyle={styles.dropdownPlaceholder}
+              selectedTextStyle={styles.dropdownSelectedText}
+              //inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.dropdownIcon}
               data={data}
-              search
+              //search
               maxHeight={300}
               labelField="label"
               valueField="value"
-              placeholder={!isFocus ? "Select item" : "..."}
-              searchPlaceholder="Search..."
+              itemTextStyle={styles.dropdownItemText}
+              itemContainerStyle={styles.dropdownItemContainer}
+              containerStyle={styles.dropdownListContainer}
+              //placeholder={!isFocus ? "Select item" : "..."}
+              //searchPlaceholder="Search..."
               value={value}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
+              //onFocus={() => setIsFocus(true)}
+              //onBlur={() => setIsFocus(false)}
               onChange={(item) => {
                 setValue(item.value);
                 setIsFocus(false);
@@ -280,6 +283,19 @@ const styles = StyleSheet.create({
   },
   datePickerButton: {
     backgroundColor: colors.neutral700,
+    alignSelf: "flex-end",
+    padding: spacingY._7,
+    marginRight: spacingX._7,
+    paddingHorizontal: spacingY._15,
+    borderRadius: radius._10,
+  },
+  dropdownContainer: {
+    height: verticalScale(54),
+    borderWidth: 1,
+    borderColor: colors.neutral300,
+    paddingHorizontal: spacingX._15,
+    borderRadius: radius._15,
+    borderCurve: "continuous",
   },
   dropdownItemText: {
     color: colors.white,
@@ -289,6 +305,7 @@ const styles = StyleSheet.create({
     fontSize: verticalScale(14),
   },
   dropdownListContainer: {
+    backgroundColor: colors.neutral900,
     borderRadius: radius._15,
     borderCurve: "continuous",
     paddingVertical: spacingY._7,
@@ -312,4 +329,4 @@ const styles = StyleSheet.create({
     tintColor: colors.neutral300,
   },
 });
-//5.14
+//7.20
