@@ -27,6 +27,7 @@ import ImageUpload from "@/components/ImageUpload";
 import { createOrUpdateWallet, deleteWallet } from "@/services/walletService";
 
 import { Dropdown } from "react-native-element-dropdown";
+import { transactionTypes } from "@/constants/data";
 
 const TransactionModal = () => {
   const { user, updateUserData } = useAuth();
@@ -111,30 +112,7 @@ const TransactionModal = () => {
       ]
     );
   };
-
-  const data = [
-    { label: "Item 1", value: "1" },
-    { label: "Item 2", value: "2" },
-    { label: "Item 3", value: "3" },
-    { label: "Item 4", value: "4" },
-    { label: "Item 5", value: "5" },
-    { label: "Item 6", value: "6" },
-    { label: "Item 7", value: "7" },
-    { label: "Item 8", value: "8" },
-  ];
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-
-  const renderLabel = () => {
-    if (value || isFocus) {
-      return (
-        <Text style={[styles.label, isFocus && { color: "blue" }]}>
-          Dropdown label
-        </Text>
-      );
-    }
-    return null;
-  };
+  //11.11
 
   return (
     <ModalWrapper>
@@ -155,11 +133,11 @@ const TransactionModal = () => {
             <Dropdown
               activeColor={colors.neutral700}
               style={styles.dropdownContainer}
-              placeholderStyle={styles.dropdownPlaceholder}
+              //placeholderStyle={styles.dropdownPlaceholder}
               selectedTextStyle={styles.dropdownSelectedText}
               //inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.dropdownIcon}
-              data={data}
+              data={transactionTypes}
               //search
               maxHeight={300}
               labelField="label"
@@ -169,12 +147,11 @@ const TransactionModal = () => {
               containerStyle={styles.dropdownListContainer}
               //placeholder={!isFocus ? "Select item" : "..."}
               //searchPlaceholder="Search..."
-              value={value}
+              value={transaction.type}
               //onFocus={() => setIsFocus(true)}
               //onBlur={() => setIsFocus(false)}
               onChange={(item) => {
-                setValue(item.value);
-                setIsFocus(false);
+                setTransaction({ ...transaction, type: item.value });
               }}
               //   renderLeftIcon={() => (
               //     <AntDesign
