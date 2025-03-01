@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { scale, verticalScale } from "@/utils/styling";
-import { colors, spacingX, spacingY } from "@/constants/theme";
+import { colors, radius, spacingX, spacingY } from "@/constants/theme";
 import ModalWrapper from "@/components/ModalWrapper";
 import Header from "@/components/Header";
 import BackButton from "@/components/BackButton";
@@ -18,7 +18,7 @@ import { useAuth } from "@/contexts/authContext";
 import * as Icons from "phosphor-react-native";
 import Typo from "@/components/Typo";
 import Input from "@/components/Input";
-import { UserDataType, WalletType } from "@/types";
+import { TransactionType, UserDataType, WalletType } from "@/types";
 import Button from "@/components/Button";
 import { updateUser } from "@/services/userService";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -26,75 +26,76 @@ import * as ImagePicker from "expo-image-picker";
 import ImageUpload from "@/components/ImageUpload";
 import { createOrUpdateWallet, deleteWallet } from "@/services/walletService";
 
-//7.42 video 8
-//18.21 vid 9s
+import { Dropdown } from "react-native-element-dropdown";
+
 const TransactionModal = () => {
   const { user, updateUserData } = useAuth();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const oldWallet: { name: string; image: string; id: string } =
+  const oldTransaction: { name: string; image: string; id: string } =
     useLocalSearchParams();
-  //console.log("old wallet: ", oldWallet);
+  //console.log("old wallet: ", oldTransaction);
 
-  useEffect(() => {
-    //update
-    if (oldWallet?.id) {
-      setWallet({
-        name: oldWallet?.name,
-        image: oldWallet?.image,
-      });
-    }
-  }, []);
+  //   useEffect(() => {
+  //     //update
+  //     if (oldTransaction?.id) {
+  //       setTransaction({
+  //         name: oldTransaction?.name,
+  //         image: oldTransaction?.image,
+  //       });
+  //     }
+  //   }, []);
 
-  const [wallet, setWallet] = useState<WalletType>({
-    name: "",
+  const [transaction, setTransaction] = useState<TransactionType>({
+    type: "expense",
+    amount: 0,
+    description: "",
+    category: "",
+    date: new Date(),
+    walletId: "",
     image: null,
   });
 
   const onSubmit = async () => {
-    let { name, image } = wallet;
-    if (!name.trim() || !image) {
-      Alert.alert("Wallet", "Please fill all the fields");
-      return;
-    }
-
-    const data: WalletType = {
-      name,
-      image,
-      uid: user?.uid,
-    };
-
-    //TODO include the id of the wallet for updating
-    if (oldWallet?.id) data.id = oldWallet?.id;
-
-    setLoading(true);
-    const res = await createOrUpdateWallet(data);
-    setLoading(false);
-
-    if (res.success) {
-      router.back();
-    } else {
-      Alert.alert("Wallet", res.msg);
-    }
+    // let { name, image } = transaction;
+    // if (!name.trim() || !image) {
+    //   Alert.alert("Transaction", "Please fill all the fields");
+    //   return;
+    // }
+    // const data: WalletType = {
+    //   name,
+    //   image,
+    //   uid: user?.uid,
+    // };
+    // //TODO include the id of the wallet for updating
+    // if (oldTransaction?.id) data.id = oldTransaction?.id;
+    // setLoading(true);
+    // const res = await createOrUpdateWallet(data);
+    // setLoading(false);
+    // if (res.success) {
+    //   router.back();
+    // } else {
+    //   Alert.alert("Wallet", res.msg);
+    // }
   };
 
   const onDelete = async () => {
-    console.log("Delete Called for Wallet: ", oldWallet?.id);
-    if (!oldWallet?.id) return; //no wallet to delete
+    console.log("Delete Called for Transaction: ", oldTransaction?.id);
+    if (!oldTransaction?.id) return; //no transaction to delete
     setLoading(true);
-    const res = await deleteWallet(oldWallet?.id);
+    const res = await deleteWallet(oldTransaction?.id);
     setLoading(false);
     if (res.success) {
       router.back();
     } else {
-      Alert.alert("Wallet", res.msg);
+      Alert.alert("Transaction", res.msg);
     }
   };
 
   const showDeleteAlert = () => {
     Alert.alert(
-      "Confirm Delete Wallet",
+      "Confirm Delete Transaction",
       "Are you sure you want to Delete?\nThis action will remove all Transactions related to this wallet!",
       [
         {
@@ -115,34 +116,35 @@ const TransactionModal = () => {
     <ModalWrapper>
       <View style={styles.container}>
         <Header
-          title={oldWallet?.id ? "Update Wallet" : "New Wallet"}
+          title={oldTransaction?.id ? "Update Transaction" : "New Transaction"}
           leftIcon={<BackButton />}
           style={{ marginBottom: spacingY._10 }}
         />
         {/* Form */}
-        <ScrollView contentContainerStyle={styles.form}>
+        <ScrollView
+          contentContainerStyle={styles.form}
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.inputContainer}>
-            <Typo color={colors.neutral200}>Wallet Name</Typo>
-            <Input
-              placeholder="Salary"
-              value={wallet.name}
-              onChangeText={(value) => setWallet({ ...wallet, name: value })}
-            />
+            <Typo color={colors.neutral200}>Type</Typo>
+            {/* dropdown */}
           </View>
           <View style={styles.inputContainer}>
-            <Typo color={colors.neutral200}>Wallet Icon</Typo>
+            <Typo color={colors.neutral200}>Transaction Icon</Typo>
             {/* image input */}
             <ImageUpload
-              file={wallet.image}
-              onClear={() => setWallet({ ...wallet, image: null })}
-              onSelect={(file) => setWallet({ ...wallet, image: file })}
+              file={transaction.image}
+              onClear={() => setTransaction({ ...transaction, image: null })}
+              onSelect={(file) =>
+                setTransaction({ ...transaction, image: file })
+              }
               placeholder="Upload Image"
             />
           </View>
         </ScrollView>
       </View>
       <View style={styles.footer}>
-        {oldWallet?.id && !loading && (
+        {oldTransaction?.id && !loading && (
           <Button
             onPress={showDeleteAlert}
             style={{
@@ -159,7 +161,7 @@ const TransactionModal = () => {
         )}
         <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
           <Typo color={colors.black} fontWeight={"700"}>
-            {oldWallet?.id ? "Update Wallet" : "Add Wallet"}
+            {oldTransaction?.id ? "Update Transaction" : "Add Transaction"}
           </Typo>
         </Button>
       </View>
@@ -172,8 +174,12 @@ export default TransactionModal;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-between",
     paddingHorizontal: spacingY._20,
+  },
+  form: {
+    gap: spacingY._20,
+    paddingVertical: spacingY._15,
+    paddingBottom: spacingY._40,
   },
   footer: {
     alignItems: "center",
@@ -186,39 +192,70 @@ const styles = StyleSheet.create({
     marginBottom: spacingY._5,
     borderTopWidth: 1,
   },
-  form: {
-    gap: spacingY._30,
-    marginTop: spacingY._15,
-  },
-  avatarContainer: {
-    position: "relative",
-    alignSelf: "center",
-  },
-  avatar: {
-    alignSelf: "center",
-    backgroundColor: colors.neutral300,
-    height: verticalScale(135),
-    width: verticalScale(135),
-    borderRadius: 200,
-    borderWidth: 1,
-    borderColor: colors.neutral500,
-    // overflow: "hidden",
-    // position: "relative",
-  },
-  editIcon: {
-    position: "absolute",
-    bottom: spacingY._5,
-    right: spacingY._7,
-    borderRadius: 100,
-    backgroundColor: colors.neutral100,
-    shadowColor: colors.black,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
-    elevation: 4,
-    padding: spacingY._7,
-  },
   inputContainer: {
     gap: spacingY._10,
+  },
+  flexRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacingX._5,
+  },
+  dateInput: {
+    flexDirection: "row",
+    height: verticalScale(54),
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.neutral300,
+    borderRadius: radius._17,
+    borderCurve: "continuous",
+    paddingHorizontal: spacingX._15,
+  },
+  iosDatePicker: {
+    // backgroundColor: "red",
+  },
+  iosDropDown: {
+    flexDirection: "row",
+    height: verticalScale(54),
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: verticalScale(14),
+    borderWidth: 1,
+    color: colors.white,
+    borderColor: colors.neutral300,
+    borderRadius: radius._17,
+    borderCurve: "continuous",
+  },
+  datePickerButton: {
+    backgroundColor: colors.neutral700,
+  },
+  dropdownItemText: {
+    color: colors.white,
+  },
+  dropdownSelectedText: {
+    color: colors.white,
+    fontSize: verticalScale(14),
+  },
+  dropdownListContainer: {
+    borderRadius: radius._15,
+    borderCurve: "continuous",
+    paddingVertical: spacingY._7,
+    top: 5,
+    borderColor: colors.neutral500,
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 1,
+    shadowRadius: 15,
+    elevation: 5,
+  },
+  dropdownPlaceholder: {
+    color: colors.white,
+  },
+  dropdownItemContainer: {
+    borderRadius: radius._15,
+    marginHorizontal: spacingX._7,
+  },
+  dropdownIcon: {
+    height: verticalScale(30),
+    tintColor: colors.neutral300,
   },
 });
