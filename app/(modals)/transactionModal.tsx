@@ -84,6 +84,7 @@ const TransactionModal = () => {
     image: null,
   });
 
+  //36.38 video 11
   const onSubmit = async () => {
     // let { name, image } = transaction;
     // if (!name.trim() || !image) {
@@ -354,9 +355,14 @@ const TransactionModal = () => {
           </View>
 
           <View style={styles.inputContainer}>
-            <Typo color={colors.neutral200} size={16}>
-              Transaction Icon
-            </Typo>
+            <View style={styles.flexRow}>
+              <Typo color={colors.neutral200} size={16}>
+                Receipt
+              </Typo>
+              <Typo color={colors.neutral500} size={14}>
+                (optional)
+              </Typo>
+            </View>
             {/* image input */}
             <ImageUpload
               file={transaction.image}
@@ -387,7 +393,7 @@ const TransactionModal = () => {
         )}
         <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
           <Typo color={colors.black} fontWeight={"700"}>
-            {oldTransaction?.id ? "Update Transaction" : "Add Transaction"}
+            {oldTransaction?.id ? "Update" : "Submit"}
           </Typo>
         </Button>
       </View>
