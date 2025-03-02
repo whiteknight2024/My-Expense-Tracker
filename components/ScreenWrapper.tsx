@@ -69,7 +69,7 @@ const ScreenWrapper = ({ style, children }: ScreenWrapperProps) => {
  */
 
   // Calculate paddingTop using platform-specific logic
-  let platformPaddingTop = Platform.OS === "ios" ? height * 0.06 : 50;
+  let platformPaddingTop = Platform.OS === "ios" ? height * 0.06 : 0; // 50;
 
   // Adjust paddingTop to only use insets.top if it's greater than platformPaddingTop
   const paddingTop = Math.max(platformPaddingTop, insets.top);
@@ -88,7 +88,7 @@ const ScreenWrapper = ({ style, children }: ScreenWrapperProps) => {
       <StatusBar
         barStyle="light-content"
         translucent
-        backgroundColor="transparent"
+        backgroundColor={colors.neutral900}
       />
       {children}
     </View>

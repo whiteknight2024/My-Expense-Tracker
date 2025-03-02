@@ -58,10 +58,10 @@ const TransactionModal = () => {
     useLocalSearchParams();
   //console.log("old wallet: ", oldTransaction);
 
-  const onDateChange = (event: DateTimePickerEvent, selectedDate: Date) => {
+  const onDateChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || transaction.date;
     setTransaction({ ...transaction, date: currentDate });
-    setShowDatePicker(false);
+    setShowDatePicker(Platform.OS == "ios" ? true : false); //thinks issue
   };
 
   //   useEffect(() => {
@@ -279,9 +279,19 @@ const TransactionModal = () => {
                   value={transaction.date as Date}
                   textColor={colors.white}
                   mode="date"
-                  display="calendar"
+                  display={Platform.OS == "ios" ? "spinner" : "default"}
                   onChange={onDateChange}
                 />
+                {Platform.OS == "ios" && (
+                  <TouchableOpacity
+                    style={styles.datePickerButton}
+                    onPress={() => setShowDatePicker(false)}
+                  >
+                    <Typo size={15} fontWeight={"500"}>
+                      Ok
+                    </Typo>
+                  </TouchableOpacity>
+                )}
               </View>
             )}
           </View>

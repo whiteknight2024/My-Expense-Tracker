@@ -9,7 +9,7 @@ const isIos = Platform.OS === "ios";
 const ModalWrapper = ({
   style,
   children,
-  bg = colors.neutral800,
+  bg = colors.neutral900,
 }: ModalWrapperProps) => {
   return (
     <View style={[styles.container, { backgroundColor: bg }, style && style]}>
@@ -23,7 +23,7 @@ export default ModalWrapper;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: isIos ? spacingY._15 : 50,
+    paddingTop: isIos ? spacingY._15 : 44, //50,
     paddingBottom: isIos ? spacingY._20 : spacingY._10,
   },
 });
