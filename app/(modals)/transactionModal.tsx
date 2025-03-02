@@ -336,6 +336,13 @@ const TransactionModal = () => {
             <Input
               //placeholder="Salary"
               //keyboardType="numeric"
+              multiline
+              containerStyle={{
+                flexDirection: "row",
+                height: verticalScale(100),
+                alignItems: "flex-start",
+                paddingVertical: 15,
+              }}
               value={transaction.description}
               onChangeText={(value) =>
                 setTransaction({
