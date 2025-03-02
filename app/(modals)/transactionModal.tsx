@@ -155,7 +155,9 @@ const TransactionModal = () => {
         >
           {/* transaction type */}
           <View style={styles.inputContainer}>
-            <Typo color={colors.neutral200}>Type</Typo>
+            <Typo color={colors.neutral200} size={16}>
+              Type
+            </Typo>
             {/* dropdown */}
             <Dropdown
               activeColor={colors.neutral700}
@@ -193,7 +195,9 @@ const TransactionModal = () => {
 
           {/* wallet input */}
           <View style={styles.inputContainer}>
-            <Typo color={colors.neutral200}>Wallet</Typo>
+            <Typo color={colors.neutral200} size={16}>
+              Wallet
+            </Typo>
             {/* dropdown */}
             <Dropdown
               activeColor={colors.neutral700}
@@ -227,7 +231,9 @@ const TransactionModal = () => {
           {/* dropdown expense categories 15.03*/}
           {transaction.type == "expense" && (
             <View style={styles.inputContainer}>
-              <Typo color={colors.neutral200}>Expense Category</Typo>
+              <Typo color={colors.neutral200} size={16}>
+                Expense Category
+              </Typo>
               {/* dropdown */}
               <Dropdown
                 activeColor={colors.neutral700}
@@ -261,7 +267,9 @@ const TransactionModal = () => {
 
           {/* date picker */}
           <View style={styles.inputContainer}>
-            <Typo color={colors.neutral200}>Date</Typo>
+            <Typo color={colors.neutral200} size={16}>
+              Date
+            </Typo>
             {!showDatePicker && (
               <Pressable
                 style={styles.dateInput}
@@ -298,7 +306,9 @@ const TransactionModal = () => {
 
           {/* amount of the transaction */}
           <View style={styles.inputContainer}>
-            <Typo color={colors.neutral200}>Amount</Typo>
+            <Typo color={colors.neutral200} size={16}>
+              Amount
+            </Typo>
             <Input
               //placeholder="Salary"
               keyboardType="numeric"
@@ -312,8 +322,34 @@ const TransactionModal = () => {
             />
           </View>
 
+          {/* description of the transaction */}
           <View style={styles.inputContainer}>
-            <Typo color={colors.neutral200}>Transaction Icon</Typo>
+            <View style={styles.flexRow}>
+              <Typo color={colors.neutral200} size={16}>
+                Description
+              </Typo>
+              <Typo color={colors.neutral500} size={14}>
+                (optional)
+              </Typo>
+            </View>
+
+            <Input
+              //placeholder="Salary"
+              //keyboardType="numeric"
+              value={transaction.description}
+              onChangeText={(value) =>
+                setTransaction({
+                  ...transaction,
+                  description: value,
+                })
+              }
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Typo color={colors.neutral200} size={16}>
+              Transaction Icon
+            </Typo>
             {/* image input */}
             <ImageUpload
               file={transaction.image}
