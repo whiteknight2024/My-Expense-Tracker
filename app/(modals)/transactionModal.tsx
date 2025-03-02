@@ -64,16 +64,6 @@ const TransactionModal = () => {
     setShowDatePicker(Platform.OS == "ios" ? true : false); //thinks issue
   };
 
-  //   useEffect(() => {
-  //     //update
-  //     if (oldTransaction?.id) {
-  //       setTransaction({
-  //         name: oldTransaction?.name,
-  //         image: oldTransaction?.image,
-  //       });
-  //     }
-  //   }, []);
-
   const [transaction, setTransaction] = useState<TransactionType>({
     type: "expense",
     amount: 0,
@@ -86,26 +76,26 @@ const TransactionModal = () => {
 
   //36.38 video 11
   const onSubmit = async () => {
-    // let { name, image } = transaction;
-    // if (!name.trim() || !image) {
-    //   Alert.alert("Transaction", "Please fill all the fields");
-    //   return;
-    // }
-    // const data: WalletType = {
-    //   name,
-    //   image,
-    //   uid: user?.uid,
-    // };
-    // //TODO include the id of the wallet for updating
-    // if (oldTransaction?.id) data.id = oldTransaction?.id;
-    // setLoading(true);
-    // const res = await createOrUpdateWallet(data);
-    // setLoading(false);
-    // if (res.success) {
-    //   router.back();
-    // } else {
-    //   Alert.alert("Wallet", res.msg);
-    // }
+    const { type, amount, description, category, date, walletId, image } =
+      transaction;
+    if (!walletId || !date || !amount || (type == "expense" && !category)) {
+      Alert.alert("Transaction", "Please enter all required fields");
+      return;
+    }
+
+    console.log("good to go");
+    //object of all values
+    let transactionData: TransactionType = {
+      type,
+      amount,
+      description,
+      category,
+      date,
+      walletId,
+      image,
+      uid: user?.uid,
+    };
+    console.log("transaction data: ", transactionData);
   };
 
   const onDelete = async () => {
