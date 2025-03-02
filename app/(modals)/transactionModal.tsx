@@ -279,7 +279,7 @@ const TransactionModal = () => {
                   value={transaction.date as Date}
                   textColor={colors.white}
                   mode="date"
-                  display={Platform.OS == "ios" ? "spinner" : "default"}
+                  display={Platform.OS == "ios" ? "spinner" : "spinner"} //spinner works for android as well and fixes color theme
                   onChange={onDateChange}
                 />
                 {Platform.OS == "ios" && (
@@ -441,3 +441,6 @@ const styles = StyleSheet.create({
   },
 });
 //19.41
+
+//must implement proper colors for popup.
+//https://github.com/react-native-datetimepicker/datetimepicker/blob/HEAD/docs/android-styling.md
