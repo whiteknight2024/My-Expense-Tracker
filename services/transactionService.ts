@@ -1,6 +1,7 @@
 import { firestore } from "@/config/firebase";
 import { TransactionType, WalletType } from "@/types";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { uploadFileToCloudinary } from "./imageService";
 
 export const createOrUpdateTransaction = async (
   transactionData: Partial<TransactionType>
@@ -16,7 +17,30 @@ export const createOrUpdateTransaction = async (
     } else {
       //update wallet for new transcation
       //update wallet
+      let res = await updateWalletForNewTransaction(
+        walletId!,
+        Number(amount!),
+        type
+      );
+      if (!res.success) return res;
     }
+
+    //image upload pending
+    if (image) {
+      const imageUploadRes = await uploadFileToCloudinary(
+        image,
+        "transactions"
+      );
+
+      if (!imageUploadRes.success) {
+        return {
+          success: false,
+          msg: imageUploadRes.msg || "Failed to upload receipt",
+        };
+      }
+      transactionData.image = imageUploadRes.data;
+    }
+
     return {
       success: true,
     };
@@ -26,7 +50,6 @@ export const createOrUpdateTransaction = async (
   }
 };
 
-//2.36
 const updateWalletForNewTransaction = async (
   walletId: string,
   amount: number,
