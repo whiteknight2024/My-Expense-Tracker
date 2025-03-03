@@ -35,6 +35,7 @@ import { orderBy, where } from "firebase/firestore";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
+import { createOrUpdateTransaction } from "@/services/transactionService";
 
 const TransactionModal = () => {
   const { user } = useAuth();
@@ -97,6 +98,17 @@ const TransactionModal = () => {
       uid: user?.uid,
     };
     console.log("transaction data: ", transactionData);
+
+    // to do include the transaction id for updating
+    setLoading(true);
+    const res = await createOrUpdateTransaction(transactionData);
+    setLoading(false);
+    if (res.success) {
+      router.back();
+    } else {
+      Alert.alert("Transaction", res.msg);
+      return;
+    }
   };
 
   const onDelete = async () => {
