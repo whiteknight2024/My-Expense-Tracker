@@ -1,6 +1,6 @@
 import { firestore } from "@/config/firebase";
 import { TransactionType, WalletType } from "@/types";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { uploadFileToCloudinary } from "./imageService";
 
 export const createOrUpdateTransaction = async (
@@ -41,8 +41,18 @@ export const createOrUpdateTransaction = async (
       transactionData.image = imageUploadRes.data;
     }
 
+    //create a transaction reference
+    //depending if have id its an update or new transaction
+    const transactionRef = id
+      ? doc(firestore, "transactions", id)
+      : doc(collection(firestore, "transactions"));
+
+    //perform the update
+    await setDoc(transactionRef, transactionData, { merge: true });
+
     return {
       success: true,
+      data: { ...transactionData, id: transactionRef.id },
     };
   } catch (error: any) {
     console.log("Error creating or updating Transaction: ", error);

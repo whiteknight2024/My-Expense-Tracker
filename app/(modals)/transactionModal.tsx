@@ -75,6 +75,7 @@ const TransactionModal = () => {
   });
 
   //36.38 video 11
+  //12.45 video 12
   const onSubmit = async () => {
     const { type, amount, description, category, date, walletId, image } =
       transaction;
