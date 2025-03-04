@@ -4,9 +4,27 @@ import Typo from "./Typo";
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import { scale, verticalScale } from "@/utils/styling";
 import * as Icons from "phosphor-react-native";
+import useFetchData from "@/hooks/useFetchData";
+import { WalletType } from "@/types";
+import { orderBy, where } from "firebase/firestore";
+import { useAuth } from "@/contexts/authContext";
 
 //9.08
 const HomeCard = () => {
+  const { user } = useAuth();
+
+  const {
+    data: wallets,
+    error,
+    loading,
+  } = useFetchData<WalletType>("wallets", [
+    where("uid", "==", user?.uid),
+    orderBy("created", "desc"),
+  ]);
+
+  //check if getting wallets
+  console.log("wallets: ", wallets.length);
+
   return (
     <ImageBackground
       source={require("../assets/images/card.png")}
