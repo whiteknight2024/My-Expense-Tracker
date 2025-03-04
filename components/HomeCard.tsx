@@ -12,11 +12,12 @@ import { useAuth } from "@/contexts/authContext";
 //9.08
 const HomeCard = () => {
   const { user } = useAuth();
+  //const [loading, setLoading] = useState(false);
 
   const {
     data: wallets,
     error,
-    loading,
+    loading: walletLoading,
   } = useFetchData<WalletType>("wallets", [
     where("uid", "==", user?.uid),
     orderBy("created", "desc"),
@@ -24,6 +25,18 @@ const HomeCard = () => {
 
   //check if getting wallets
   console.log("wallets: ", wallets.length);
+
+  //20.15
+  const getTotals = () => {
+    wallets.reduce(
+      (totals: any, item: WalletType) => {
+        totals.balance = totals.balance + Number(item.amount);
+        totals.income = totals.income + Number(item.totalIncome);
+        totals.expense = totals.expense + Number(item.totalIncome);
+      },
+      { balance: 0, income: 0, expense: 0 }
+    );
+  };
 
   return (
     <ImageBackground
