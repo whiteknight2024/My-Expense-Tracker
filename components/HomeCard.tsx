@@ -28,11 +28,12 @@ const HomeCard = () => {
 
   //20.15
   const getTotals = () => {
-    wallets.reduce(
+    return wallets.reduce(
       (totals: any, item: WalletType) => {
         totals.balance = totals.balance + Number(item.amount);
         totals.income = totals.income + Number(item.totalIncome);
         totals.expense = totals.expense + Number(item.totalIncome);
+        return totals;
       },
       { balance: 0, income: 0, expense: 0 }
     );
@@ -58,7 +59,7 @@ const HomeCard = () => {
             />
           </View>
           <Typo color={colors.black} size={24} fontWeight={"bold"}>
-            $2300.00
+            ${getTotals()?.balance?.toFixed(2)}
           </Typo>
         </View>
         {/* total expense and income */}
