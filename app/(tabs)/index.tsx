@@ -22,8 +22,7 @@ import { limit, orderBy, where } from "firebase/firestore";
 import useFetchData from "@/hooks/useFetchData";
 import { TransactionType } from "@/types";
 
-//22.58 add logout button
-//2.50 video 10 touchableopacity
+//27.22
 const Home = () => {
   const { user } = useAuth();
   const router = useRouter();
@@ -72,7 +71,7 @@ const Home = () => {
 
           <TransactionList
             data={recentTransactions}
-            loading={false}
+            loading={transactionsLoading}
             title="Recent Transactions"
             emptyListMessage="No Transactions Added Yet!"
           />
