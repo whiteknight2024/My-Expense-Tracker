@@ -21,6 +21,7 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 import { Timestamp } from "firebase/firestore";
 import { useRouter } from "expo-router";
 
+//2.09 vid 13
 const TransactionList = ({
   data,
   title,
