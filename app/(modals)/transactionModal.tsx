@@ -55,9 +55,32 @@ const TransactionModal = () => {
   //check if getting wallets
   console.log("wallets: ", wallets.length);
 
-  const oldTransaction: { name: string; image: string; id: string } =
-    useLocalSearchParams();
-  //console.log("old wallet: ", oldTransaction);
+  type paramType = {
+    id: string;
+    type: string;
+    amount: string;
+    category?: string;
+    date: string;
+    description?: string;
+    image?: any;
+    uid?: string;
+    walletId: string;
+  };
+
+  const oldTransaction: paramType = useLocalSearchParams();
+
+  useEffect(() => {
+    if (oldTransaction?.id) {
+      setTransaction({
+        name: oldTransaction?.name,
+        image: oldTransaction?.image,
+      });
+    }
+  }, []);
+
+  // const oldTransaction: { name: string; image: string; id: string } =
+  //   useLocalSearchParams();
+  // //console.log("old wallet: ", oldTransaction);
 
   const onDateChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || transaction.date;
