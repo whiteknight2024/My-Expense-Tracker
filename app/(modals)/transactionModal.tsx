@@ -72,8 +72,13 @@ const TransactionModal = () => {
   useEffect(() => {
     if (oldTransaction?.id) {
       setTransaction({
-        name: oldTransaction?.name,
+        type: oldTransaction?.type,
+        amount: Number(oldTransaction.amount),
         image: oldTransaction?.image,
+        description: oldTransaction.description || "",
+        category: oldTransaction.category || "",
+        walletId: oldTransaction.walletId,
+        date: new Date(oldTransaction.date),
       });
     }
   }, []);
