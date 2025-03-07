@@ -127,6 +127,10 @@ const TransactionModal = () => {
     };
     console.log("transaction data: ", transactionData);
 
+    if (oldTransaction?.id) {
+      transactionData.id = oldTransaction.id;
+    }
+
     // to do include the transaction id for updating
     setLoading(true);
     const res = await createOrUpdateTransaction(transactionData);

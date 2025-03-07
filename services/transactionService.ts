@@ -13,7 +13,24 @@ export const createOrUpdateTransaction = async (
     }
 
     if (id) {
-      //performing update to existing transaction
+      const oldTransactionSnapshot = await getDoc(
+        doc(firestore, "transactions", id)
+      );
+      const oldTransaction = oldTransactionSnapshot.data() as TransactionType;
+      const shouldRevertOrignal =
+        oldTransaction.type != type ||
+        oldTransaction.amount != amount ||
+        oldTransaction.walletId != walletId;
+
+      if (shouldRevertOrignal) {
+        let res = await revertAndUpdateWallets(
+          oldTransaction,
+          Number(amount),
+          type,
+          walletId
+        );
+        if (!res.success) return res;
+      }
     } else {
       //update wallet for new transcation
       //update wallet
@@ -103,5 +120,28 @@ const updateWalletForNewTransaction = async (
   } catch (error: any) {
     console.log("Error updating Wallet for New Transaction: ", error);
     return { success: false, msg: error.message };
+  }
+};
+
+const revertAndUpdateWallets = async (
+  oldTransaction: TransactionType,
+  newTransactionAmount: number,
+  newTransactionType: string,
+  newWalletId: string
+) => {
+  try {
+    const walletRef = doc(firestore, "wallets", walletId);
+    const walletSnapshot = await getDoc(walletRef);
+    if (!walletSnapshot.exists()) {
+      console.log("error updating wallet for new transaction");
+      return { success: false, msg: "Wallet not found" };
+    }
+
+    const walletData = walletSnapshot.data() as WalletType;
+
+    return { success: true };
+  } catch (err: any) {
+    console.log("error updating wallet for new transaction: ", err);
+    return { success: false, msg: err.message };
   }
 };
