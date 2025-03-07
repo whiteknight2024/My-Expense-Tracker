@@ -130,14 +130,28 @@ const revertAndUpdateWallets = async (
   newWalletId: string
 ) => {
   try {
-    const walletRef = doc(firestore, "wallets", walletId);
-    const walletSnapshot = await getDoc(walletRef);
-    if (!walletSnapshot.exists()) {
-      console.log("error updating wallet for new transaction");
-      return { success: false, msg: "Wallet not found" };
-    }
+    const originalWalletSnapshot = await getDoc(
+      doc(firestore, "wallets", oldTransaction.walletId)
+    );
 
-    const walletData = walletSnapshot.data() as WalletType;
+    const orginalWallet = originalWalletSnapshot.data() as WalletType;
+
+    let newWalletSnapshot = await getDoc(
+      doc(firestore, "wallets", newWalletId)
+    );
+
+    let newWallet = newWalletSnapshot.data() as WalletType;
+
+    const revertType =
+      oldTransaction.type == "income" ? "totalIncome" : "totalExpenses";
+
+    const revertIncomeExpense: number =
+      oldTransaction.type == "income"
+        ? -Number(oldTransaction.amount)
+        : Number(oldTransaction.amount);
+
+    const revertedWalletAmount =
+      Number(oldTransaction.amount) + revertIncomeExpense;
 
     return { success: true };
   } catch (err: any) {
