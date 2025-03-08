@@ -35,7 +35,10 @@ import { orderBy, where } from "firebase/firestore";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import { createOrUpdateTransaction } from "@/services/transactionService";
+import {
+  createOrUpdateTransaction,
+  deleteTransaction,
+} from "@/services/transactionService";
 
 const TransactionModal = () => {
   const { user } = useAuth();
@@ -122,7 +125,7 @@ const TransactionModal = () => {
       category,
       date,
       walletId,
-      image,
+      image: image ? image : null,
       uid: user?.uid,
     };
     console.log("transaction data: ", transactionData);
@@ -143,11 +146,15 @@ const TransactionModal = () => {
     }
   };
 
+  //   //
+  //   if (transactionType == "income" && newWalletAmount < 0) {
+  //     return { success: false, msg: "You cannot delete this transaction" };
+  // }
   const onDelete = async () => {
     console.log("Delete Called for Transaction: ", oldTransaction?.id);
     if (!oldTransaction?.id) return; //no transaction to delete
     setLoading(true);
-    const res = await deleteWallet(oldTransaction?.id);
+    const res = await deleteTransaction(oldTransaction?.id);
     setLoading(false);
     if (res.success) {
       router.back();

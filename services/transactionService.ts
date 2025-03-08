@@ -218,3 +218,25 @@ const revertAndUpdateWallets = async (
     return { success: false, msg: err.message };
   }
 };
+
+// ❌incorrect:
+// if (transactionType == "expense" && newWalletAmount < 0) {
+//       return { success: false, msg: "You cannot delete this transaction" };
+// }
+
+// ✅correct:
+// if (transactionType == "income" && newWalletAmount < 0) {
+//       return { success: false, msg: "You cannot delete this transaction" };
+// }
+
+export const deleteTransaction = async (
+  transactionId: string,
+  walletId: string
+) => {
+  try {
+    return { success: true };
+  } catch (err: any) {
+    console.log("error updating wallet for new transaction: ", err);
+    return { success: false, msg: err.message };
+  }
+};
