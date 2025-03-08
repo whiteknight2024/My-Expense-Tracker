@@ -249,6 +249,10 @@ export const deleteTransaction = async (
     const walletSnapshot = await getDoc(doc(firestore, "wallets", walletId));
     const walletData = walletSnapshot.data() as WalletType;
 
+    // if (transactionType == "income" && newWalletAmount < 0) {
+    //   return { success: false, msg: "You cannot delete this transaction" };
+    // }
+
     return { success: true };
   } catch (err: any) {
     console.log("Error updating wallet for new transaction:", err);
