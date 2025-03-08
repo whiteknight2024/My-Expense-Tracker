@@ -245,6 +245,10 @@ export const deleteTransaction = async (
     const TransactionType = transactionData?.type;
     const transactionAmount = transactionData?.amount;
 
+    // fetch wallet to update amount, totalIncome or totalExpenses
+    const walletSnapshot = await getDoc(doc(firestore, "wallets", walletId));
+    const walletData = walletSnapshot.data() as WalletType;
+
     return { success: true };
   } catch (err: any) {
     console.log("Error updating wallet for new transaction:", err);
