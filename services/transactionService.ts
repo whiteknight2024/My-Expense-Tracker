@@ -1,6 +1,13 @@
 import { firestore } from "@/config/firebase";
 import { TransactionType, WalletType, ResponseType } from "@/types";
-import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { uploadFileToCloudinary } from "./imageService";
 import { createOrUpdateWallet } from "./walletService";
 
@@ -234,9 +241,8 @@ export const deleteTransaction = async (
   walletId: string
 ) => {
   try {
-    const transactionSnapshot = await getDoc(
-      doc(firestore, "transactions", transactionId)
-    );
+    const transactionRef = doc(firestore, "transactions", transactionId);
+    const transactionSnapshot = await getDoc(transactionRef);
 
     if (!transactionSnapshot.exists()) {
       return { success: false, msg: "Transaction Not Found" };
@@ -262,11 +268,15 @@ export const deleteTransaction = async (
       return { success: false, msg: "You cannot delete this transaction" };
     }
 
+    //34.18
     await createOrUpdateWallet({
       id: walletId,
       amount: newWalletAmount,
       [updateType]: newIncomeExpenseAmount,
     });
+
+    //35.21
+    await deleteDoc(transactionRef);
 
     return { success: true };
   } catch (err: any) {
