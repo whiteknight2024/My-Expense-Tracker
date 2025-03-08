@@ -134,7 +134,7 @@ const revertAndUpdateWallets = async (
       doc(firestore, "wallets", oldTransaction.walletId)
     );
 
-    const orginalWallet = originalWalletSnapshot.data() as WalletType;
+    const originalWallet = originalWalletSnapshot.data() as WalletType;
 
     let newWalletSnapshot = await getDoc(
       doc(firestore, "wallets", newWalletId)
@@ -151,7 +151,31 @@ const revertAndUpdateWallets = async (
         : Number(oldTransaction.amount);
 
     const revertedWalletAmount =
-      Number(oldTransaction.amount) + revertIncomeExpense;
+      Number(originalWallet.amount) + revertIncomeExpense;
+    // wallet amount, after the transaction is removed
+
+    const revertedIncomeExpenseAmount =
+      Number(originalWallet[revertType]) - Number(oldTransaction.amount);
+
+    if (newTransactionType == "expense") {
+      // if user tries to convert income to expense on the same wallet
+      // or if the user tries to increase the expense amount and don't have enough balance
+      if (
+        oldTransaction.walletId == newWalletId &&
+        revertedWalletAmount < newTransactionAmount
+      ) {
+        return {
+          success: false,
+          msg: "The selected wallet don't have enough balance",
+        };
+      }
+      //16.07
+      //If user tries to add expense from new wallet but does not have enough
+      if (newWallet.amount! < newTransactionAmount) {
+      }
+    }
+
+    //14.05
 
     return { success: true };
   } catch (err: any) {
