@@ -256,9 +256,17 @@ export const deleteTransaction = async (
       walletData?.amount! -
       (transactionType == "income" ? transactionAmount : -transactionAmount);
 
-    // if (transactionType == "income" && newWalletAmount < 0) {
-    //   return { success: false, msg: "You cannot delete this transaction" };
-    // }
+    const newIncomeExpenseAmount = walletData[updateType]! - transactionAmount;
+
+    if (transactionType == "income" && newWalletAmount < 0) {
+      return { success: false, msg: "You cannot delete this transaction" };
+    }
+
+    await createOrUpdateWallet({
+      id: walletId,
+      amount: newWalletAmount,
+      [updateType]: newIncomeExpenseAmount,
+    });
 
     return { success: true };
   } catch (err: any) {
