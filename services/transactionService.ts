@@ -234,9 +234,17 @@ export const deleteTransaction = async (
   walletId: string
 ) => {
   try {
+    const transactionSnapshot = await getDoc(
+      doc(firestore, "transactions", transactionId)
+    );
+
+    if (!transactionSnapshot.exists()) {
+      return { success: false, msg: "Transaction Not Found" };
+    }
+    const transactionData = transactionSnapshot.data() as TransactionType;
     return { success: true };
   } catch (err: any) {
-    console.log("error updating wallet for new transaction: ", err);
+    console.log("Error updating wallet for new transaction:", err);
     return { success: false, msg: err.message };
   }
 };

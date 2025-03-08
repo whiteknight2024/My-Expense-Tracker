@@ -146,15 +146,14 @@ const TransactionModal = () => {
     }
   };
 
-  //   //
-  //   if (transactionType == "income" && newWalletAmount < 0) {
-  //     return { success: false, msg: "You cannot delete this transaction" };
-  // }
   const onDelete = async () => {
     console.log("Delete Called for Transaction: ", oldTransaction?.id);
     if (!oldTransaction?.id) return; //no transaction to delete
     setLoading(true);
-    const res = await deleteTransaction(oldTransaction?.id);
+    const res = await deleteTransaction(
+      oldTransaction?.id,
+      oldTransaction.walletId
+    );
     setLoading(false);
     if (res.success) {
       router.back();
