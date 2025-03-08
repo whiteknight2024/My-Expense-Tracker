@@ -242,12 +242,19 @@ export const deleteTransaction = async (
       return { success: false, msg: "Transaction Not Found" };
     }
     const transactionData = transactionSnapshot.data() as TransactionType;
-    const TransactionType = transactionData?.type;
+    const transactionType = transactionData?.type;
     const transactionAmount = transactionData?.amount;
 
     // fetch wallet to update amount, totalIncome or totalExpenses
     const walletSnapshot = await getDoc(doc(firestore, "wallets", walletId));
     const walletData = walletSnapshot.data() as WalletType;
+
+    // check fields to be updated based on transaction type
+    const updateType =
+      transactionType == "income" ? "totalIncome" : "totalExpenses";
+    const newWalletAmount =
+      walletData?.amount! -
+      (transactionType == "income" ? transactionAmount : -transactionAmount);
 
     // if (transactionType == "income" && newWalletAmount < 0) {
     //   return { success: false, msg: "You cannot delete this transaction" };
