@@ -242,6 +242,9 @@ export const deleteTransaction = async (
       return { success: false, msg: "Transaction Not Found" };
     }
     const transactionData = transactionSnapshot.data() as TransactionType;
+    const TransactionType = transactionData?.type;
+    const transactionAmount = transactionData?.amount;
+
     return { success: true };
   } catch (err: any) {
     console.log("Error updating wallet for new transaction:", err);
