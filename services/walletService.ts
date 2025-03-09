@@ -9,6 +9,7 @@ import {
   query,
   setDoc,
   where,
+  writeBatch,
 } from "firebase/firestore";
 import { firestore } from "@/config/firebase";
 
@@ -79,11 +80,18 @@ export const deleteTransactionsByWalletId = async (
         collection(firestore, "transactions"),
         where("walletId", "==", walletId)
       );
-      const transactionSnapshot = await getDocs(transactionsQuery);
-      if (transactionSnapshot.size == 0) {
+      const transactionsSnapshot = await getDocs(transactionsQuery);
+      if (transactionsSnapshot.size == 0) {
         hasMoreTransactions = false;
         break;
       }
+      const batch = writeBatch(firestore);
+
+      transactionsSnapshot.forEach((transactionDoc) => {
+        batch.delete(transactionDoc.ref);
+      });
+
+      await batch.commit();
     }
 
     return {
