@@ -1,12 +1,14 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
 import { colors, radius, spacingX, spacingY } from "@/constants/theme";
 import { scale, verticalScale } from "@/utils/styling";
 import Header from "@/components/Header";
+import SegmentedControl from "@react-native-segmented-control/segmented-control";
 
 const Statistics = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
   return (
     <ScreenWrapper>
       <View style={styles.container}>
@@ -20,7 +22,15 @@ const Statistics = () => {
             paddingBottom: verticalScale(100),
           }}
           showsVerticalScrollIndicator={false}
-        />
+        >
+          <SegmentedControl
+            values={["Weekly", "Monthly", "Yearly"]}
+            selectedIndex={activeIndex}
+            onChange={(event) => {
+              setActiveIndex(event.nativeEvent.selectedSegmentIndex);
+            }}
+          />
+        </ScrollView>
       </View>
     </ScreenWrapper>
   );
