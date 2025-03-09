@@ -4,6 +4,8 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
+  getDocs,
   query,
   setDoc,
   where,
@@ -77,6 +79,11 @@ export const deleteTransactionsByWalletId = async (
         collection(firestore, "transactions"),
         where("walletId", "==", walletId)
       );
+      const transactionSnapshot = await getDocs(transactionsQuery);
+      if (transactionSnapshot.size == 0) {
+        hasMoreTransactions = false;
+        break;
+      }
     }
 
     return {
