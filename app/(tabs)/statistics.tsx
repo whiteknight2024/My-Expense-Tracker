@@ -141,6 +141,8 @@ const Statistics = () => {
                 yAxisLabelPrefix="$"
                 yAxisThickness={0}
                 xAxisThickness={0}
+                yAxisLabelWidth={scale(25)}
+                yAxisTextStyle={colors.neutral350}
               />
             ) : (
               <View style={styles.noChart} />
