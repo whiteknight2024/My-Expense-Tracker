@@ -92,6 +92,10 @@ export const deleteTransactionsByWalletId = async (
       });
 
       await batch.commit();
+
+      console.log(
+        ` ${transactionsSnapshot.size} transactions deleted in this batch`
+      );
     }
 
     return {
