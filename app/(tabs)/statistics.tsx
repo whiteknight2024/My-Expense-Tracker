@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
@@ -13,6 +13,14 @@ const Statistics = () => {
         <View style={styles.header}>
           <Header title="Statistics" />
         </View>
+        <ScrollView
+          contentContainerStyle={{
+            gap: spacingY._20,
+            paddingTop: spacingY._5,
+            paddingBottom: verticalScale(100),
+          }}
+          showsVerticalScrollIndicator={false}
+        />
       </View>
     </ScreenWrapper>
   );
