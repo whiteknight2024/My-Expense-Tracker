@@ -9,9 +9,99 @@ import SegmentedControl from "@react-native-segmented-control/segmented-control"
 import { BarChart } from "react-native-gifted-charts";
 
 //4.37
+
+const barData = [
+  {
+    value: 40,
+    label: "Mon",
+    spacing: scale(4),
+    labelWidth: scale(30),
+    frontColor: colors.primary,
+    // topLabelComponent: () => (
+    //   <Typo size={10} style={{ marginBottom: 4 }}>
+    //     50
+    //   </Typo>
+    // ),
+  },
+  {
+    value: 20,
+    frontColor: colors.rose,
+  },
+  { value: 40, frontColor: colors.rose },
+  {
+    value: 50,
+    label: "Tue",
+    spacing: scale(4),
+    labelWidth: scale(30),
+    frontColor: colors.primary,
+  },
+  {
+    value: 40,
+    frontColor: colors.rose,
+  },
+  {
+    value: 75,
+    label: "Wed",
+    spacing: scale(4),
+    labelWidth: scale(30),
+    frontColor: colors.primary,
+  },
+  {
+    value: 25,
+    frontColor: colors.rose,
+  },
+  {
+    value: 30,
+    label: "Thu",
+    spacing: scale(4),
+    labelWidth: scale(30),
+    frontColor: colors.primary,
+  },
+  {
+    value: 20,
+    frontColor: colors.rose,
+  },
+  {
+    value: 60,
+    label: "Fri",
+    spacing: scale(4),
+    labelWidth: scale(30),
+    frontColor: colors.primary,
+  },
+  {
+    value: 40,
+    frontColor: colors.rose,
+  },
+  {
+    value: 65,
+    label: "Sat",
+    spacing: scale(4),
+    labelWidth: scale(30),
+    frontColor: colors.primary,
+  },
+  { value: 30, frontColor: colors.rose },
+  {
+    value: 65,
+    label: "Sun",
+    spacing: scale(4),
+    labelWidth: scale(30),
+    frontColor: colors.primary,
+  },
+  { value: 30, frontColor: colors.rose },
+  // {
+  //   value: 65,
+  //   label: "Sun",
+  //   spacing: scale(4),
+  //   labelWidth: scale(30),
+  //   frontColor: colors.primary,
+  // },
+  // { value: 30, frontColor: colors.rose },
+];
+
 const Statistics = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const chartData = [];
+  const [chartData, setChartData] = useState(barData);
+
   return (
     <ScreenWrapper>
       <View style={styles.container}>
@@ -41,7 +131,7 @@ const Statistics = () => {
           />
           <View style={styles.chartContainer}>
             {chartData.length > 0 ? (
-              <BarChart />
+              <BarChart data={chartData} />
             ) : (
               <View style={styles.noChart} />
             )}
