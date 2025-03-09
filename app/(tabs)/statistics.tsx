@@ -97,7 +97,7 @@ const barData = [
   // },
   // { value: 30, frontColor: colors.rose },
 ];
-
+//9.00
 const Statistics = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [chartData, setChartData] = useState(barData);
@@ -131,7 +131,17 @@ const Statistics = () => {
           />
           <View style={styles.chartContainer}>
             {chartData.length > 0 ? (
-              <BarChart data={chartData} />
+              <BarChart
+                data={chartData}
+                barWidth={scale(12)}
+                spacing={scale(25)}
+                roundedTop
+                roundedBottom
+                hideRules
+                yAxisLabelPrefix="$"
+                yAxisThickness={0}
+                xAxisThickness={0}
+              />
             ) : (
               <View style={styles.noChart} />
             )}
