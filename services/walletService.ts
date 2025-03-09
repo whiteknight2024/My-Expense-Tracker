@@ -57,3 +57,5 @@ export const deleteWallet = async (walletId: string): Promise<ResponseType> => {
     return { success: false, msg: error.message };
   }
 };
+
+//37.02 vid 13

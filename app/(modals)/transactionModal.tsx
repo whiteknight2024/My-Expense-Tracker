@@ -165,7 +165,7 @@ const TransactionModal = () => {
   const showDeleteAlert = () => {
     Alert.alert(
       "Confirm Delete Transaction",
-      "Are you sure you want to Delete?\nThis action will remove all Transactions related to this wallet!",
+      "Are you sure you want to Delete this transaction?",
       [
         {
           text: "Cancel",
