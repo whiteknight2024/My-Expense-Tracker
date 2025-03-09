@@ -6,7 +6,7 @@ import { colors, radius, spacingX, spacingY } from "@/constants/theme";
 import { scale, verticalScale } from "@/utils/styling";
 import Header from "@/components/Header";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
-
+//4.37
 const Statistics = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
@@ -29,6 +29,11 @@ const Statistics = () => {
             onChange={(event) => {
               setActiveIndex(event.nativeEvent.selectedSegmentIndex);
             }}
+            tintColor={colors.neutral200}
+            backgroundColor={colors.neutral800}
+            appearance="dark"
+            activeFontStyle={styles.segmentFontStyle}
+            style={styles.segmentStyle}
           />
         </ScrollView>
       </View>
