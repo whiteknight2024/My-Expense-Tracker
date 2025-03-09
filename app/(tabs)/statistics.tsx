@@ -14,6 +14,65 @@ const barData = [
   {
     value: 40,
     label: "Mon",
+    spacing: scale(10), // Increase spacing
+    labelWidth: scale(50), // Increase label width
+    frontColor: colors.primary,
+  },
+  { value: 40, frontColor: colors.rose },
+  {
+    value: 50,
+    label: "Tue",
+    spacing: scale(10), // Increase spacing
+    labelWidth: scale(50), // Increase label width
+    frontColor: colors.primary,
+  },
+  { value: 40, frontColor: colors.rose },
+  {
+    value: 75,
+    label: "Wed",
+    spacing: scale(10), // Increase spacing
+    labelWidth: scale(50), // Increase label width
+    frontColor: colors.primary,
+  },
+  { value: 25, frontColor: colors.rose },
+  {
+    value: 30,
+    label: "Thu",
+    spacing: scale(10), // Increase spacing
+    labelWidth: scale(50), // Increase label width
+    frontColor: colors.primary,
+  },
+  { value: 20, frontColor: colors.rose },
+  {
+    value: 60,
+    label: "Fri",
+    spacing: scale(10), // Increase spacing
+    labelWidth: scale(50), // Increase label width
+    frontColor: colors.primary,
+  },
+  { value: 40, frontColor: colors.rose },
+  {
+    value: 65,
+    label: "Sat",
+    spacing: scale(10), // Increase spacing
+    labelWidth: scale(50), // Increase label width
+    frontColor: colors.primary,
+  },
+  { value: 30, frontColor: colors.rose },
+  {
+    value: 65,
+    label: "Sun",
+    spacing: scale(10), // Increase spacing
+    labelWidth: scale(50), // Increase label width
+    frontColor: colors.primary,
+  },
+  { value: 30, frontColor: colors.rose },
+];
+
+const barData2 = [
+  {
+    value: 40,
+    label: "Mon",
     spacing: scale(4),
     labelWidth: scale(30),
     frontColor: colors.primary,
@@ -23,10 +82,10 @@ const barData = [
     //   </Typo>
     // ),
   },
-  {
-    value: 20,
-    frontColor: colors.rose,
-  },
+  // {
+  //   value: 20,
+  //   frontColor: colors.rose,
+  // },
   { value: 40, frontColor: colors.rose },
   {
     value: 50,
