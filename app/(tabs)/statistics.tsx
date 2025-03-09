@@ -4,11 +4,16 @@ import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
 import { colors, radius, spacingX, spacingY } from "@/constants/theme";
 import { scale, verticalScale } from "@/utils/styling";
+import Header from "@/components/Header";
 
 const Statistics = () => {
   return (
     <ScreenWrapper>
-      <Typo>Statistics</Typo>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Header title="Statistics" />
+        </View>
+      </View>
     </ScreenWrapper>
   );
 };
