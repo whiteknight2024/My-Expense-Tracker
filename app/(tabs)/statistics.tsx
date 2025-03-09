@@ -8,158 +8,127 @@ import Header from "@/components/Header";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import { BarChart } from "react-native-gifted-charts";
 
-//4.37
+//12.11
 
-const barData = [
-  {
-    value: 40,
-    label: "Mon",
-    spacing: scale(10), // Increase spacing
-    labelWidth: scale(50), // Increase label width
-    frontColor: colors.primary,
-  },
-  { value: 40, frontColor: colors.rose },
-  {
-    value: 50,
-    label: "Tue",
-    spacing: scale(10), // Increase spacing
-    labelWidth: scale(50), // Increase label width
-    frontColor: colors.primary,
-  },
-  { value: 40, frontColor: colors.rose },
-  {
-    value: 75,
-    label: "Wed",
-    spacing: scale(10), // Increase spacing
-    labelWidth: scale(50), // Increase label width
-    frontColor: colors.primary,
-  },
-  { value: 25, frontColor: colors.rose },
-  {
-    value: 30,
-    label: "Thu",
-    spacing: scale(10), // Increase spacing
-    labelWidth: scale(50), // Increase label width
-    frontColor: colors.primary,
-  },
-  { value: 20, frontColor: colors.rose },
-  {
-    value: 60,
-    label: "Fri",
-    spacing: scale(10), // Increase spacing
-    labelWidth: scale(50), // Increase label width
-    frontColor: colors.primary,
-  },
-  { value: 40, frontColor: colors.rose },
-  {
-    value: 65,
-    label: "Sat",
-    spacing: scale(10), // Increase spacing
-    labelWidth: scale(50), // Increase label width
-    frontColor: colors.primary,
-  },
-  { value: 30, frontColor: colors.rose },
-  {
-    value: 65,
-    label: "Sun",
-    spacing: scale(10), // Increase spacing
-    labelWidth: scale(50), // Increase label width
-    frontColor: colors.primary,
-  },
-  { value: 30, frontColor: colors.rose },
-];
+// const barData2 = [
+//   {
+//     value: 40,
+//     label: "Mon",
+//     spacing: scale(10), // Increase spacing
+//     labelWidth: scale(50), // Increase label width
+//     frontColor: colors.primary,
+//   },
+//   { value: 40, frontColor: colors.rose },
+//   {
+//     value: 50,
+//     label: "Tue",
+//     spacing: scale(10), // Increase spacing
+//     labelWidth: scale(50), // Increase label width
+//     frontColor: colors.primary,
+//   },
+//   { value: 40, frontColor: colors.rose },
+//   {
+//     value: 75,
+//     label: "Wed",
+//     spacing: scale(10), // Increase spacing
+//     labelWidth: scale(50), // Increase label width
+//     frontColor: colors.primary,
+//   },
+//   { value: 25, frontColor: colors.rose },
+//   {
+//     value: 30,
+//     label: "Thu",
+//     spacing: scale(10), // Increase spacing
+//     labelWidth: scale(50), // Increase label width
+//     frontColor: colors.primary,
+//   },
+//   { value: 20, frontColor: colors.rose },
+//   {
+//     value: 60,
+//     label: "Fri",
+//     spacing: scale(10), // Increase spacing
+//     labelWidth: scale(50), // Increase label width
+//     frontColor: colors.primary,
+//   },
+//   { value: 40, frontColor: colors.rose },
+//   {
+//     value: 65,
+//     label: "Sat",
+//     spacing: scale(10), // Increase spacing
+//     labelWidth: scale(50), // Increase label width
+//     frontColor: colors.primary,
+//   },
+//   { value: 30, frontColor: colors.rose },
+//   {
+//     value: 65,
+//     label: "Sun",
+//     spacing: scale(10), // Increase spacing
+//     labelWidth: scale(50), // Increase label width
+//     frontColor: colors.primary,
+//   },
+//   { value: 30, frontColor: colors.rose },
+// ];
 
-const barData2 = [
-  {
-    value: 40,
-    label: "Mon",
-    spacing: scale(4),
-    labelWidth: scale(30),
-    frontColor: colors.primary,
-    // topLabelComponent: () => (
-    //   <Typo size={10} style={{ marginBottom: 4 }}>
-    //     50
-    //   </Typo>
-    // ),
-  },
-  // {
-  //   value: 20,
-  //   frontColor: colors.rose,
-  // },
-  { value: 40, frontColor: colors.rose },
-  {
-    value: 50,
-    label: "Tue",
-    spacing: scale(4),
-    labelWidth: scale(30),
-    frontColor: colors.primary,
-  },
-  {
-    value: 40,
-    frontColor: colors.rose,
-  },
-  {
-    value: 75,
-    label: "Wed",
-    spacing: scale(4),
-    labelWidth: scale(30),
-    frontColor: colors.primary,
-  },
-  {
-    value: 25,
-    frontColor: colors.rose,
-  },
-  {
-    value: 30,
-    label: "Thu",
-    spacing: scale(4),
-    labelWidth: scale(30),
-    frontColor: colors.primary,
-  },
-  {
-    value: 20,
-    frontColor: colors.rose,
-  },
-  {
-    value: 60,
-    label: "Fri",
-    spacing: scale(4),
-    labelWidth: scale(30),
-    frontColor: colors.primary,
-  },
-  {
-    value: 40,
-    frontColor: colors.rose,
-  },
-  {
-    value: 65,
-    label: "Sat",
-    spacing: scale(4),
-    labelWidth: scale(30),
-    frontColor: colors.primary,
-  },
-  { value: 30, frontColor: colors.rose },
-  {
-    value: 65,
-    label: "Sun",
-    spacing: scale(4),
-    labelWidth: scale(30),
-    frontColor: colors.primary,
-  },
-  { value: 30, frontColor: colors.rose },
-  // {
-  //   value: 65,
-  //   label: "Sun",
-  //   spacing: scale(4),
-  //   labelWidth: scale(30),
-  //   frontColor: colors.primary,
-  // },
-  // { value: 30, frontColor: colors.rose },
-];
-//9.00
 const Statistics = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [chartData, setChartData] = useState(barData);
+  const [chartData, setChartData] = useState([
+    {
+      value: 40,
+      label: "Mon",
+      spacing: scale(10), // Increase spacing
+      labelWidth: scale(50), // Increase label width
+      frontColor: colors.primary,
+    },
+    { value: 40, frontColor: colors.rose },
+    {
+      value: 50,
+      label: "Tue",
+      spacing: scale(10), // Increase spacing
+      labelWidth: scale(50), // Increase label width
+      frontColor: colors.primary,
+    },
+    { value: 40, frontColor: colors.rose },
+    {
+      value: 75,
+      label: "Wed",
+      spacing: scale(10), // Increase spacing
+      labelWidth: scale(50), // Increase label width
+      frontColor: colors.primary,
+    },
+    { value: 25, frontColor: colors.rose },
+    {
+      value: 30,
+      label: "Thu",
+      spacing: scale(10), // Increase spacing
+      labelWidth: scale(50), // Increase label width
+      frontColor: colors.primary,
+    },
+    { value: 20, frontColor: colors.rose },
+    {
+      value: 60,
+      label: "Fri",
+      spacing: scale(10), // Increase spacing
+      labelWidth: scale(50), // Increase label width
+      frontColor: colors.primary,
+    },
+    { value: 40, frontColor: colors.rose },
+    {
+      value: 65,
+      label: "Sat",
+      spacing: scale(10), // Increase spacing
+      labelWidth: scale(50), // Increase label width
+      frontColor: colors.primary,
+    },
+    { value: 30, frontColor: colors.rose },
+    {
+      value: 65,
+      label: "Sun",
+      spacing: scale(10), // Increase spacing
+      labelWidth: scale(50), // Increase label width
+      frontColor: colors.primary,
+    },
+    { value: 30, frontColor: colors.rose },
+  ]);
 
   return (
     <ScreenWrapper>
@@ -207,6 +176,7 @@ const Statistics = () => {
                   fontsize: verticalScale(12),
                 }}
                 noOfSections={3}
+                minHeight={5}
               />
             ) : (
               <View style={styles.noChart} />
