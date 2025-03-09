@@ -6,9 +6,12 @@ import { colors, radius, spacingX, spacingY } from "@/constants/theme";
 import { scale, verticalScale } from "@/utils/styling";
 import Header from "@/components/Header";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
+import { BarChart } from "react-native-gifted-charts";
+
 //4.37
 const Statistics = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const chartData = [];
   return (
     <ScreenWrapper>
       <View style={styles.container}>
@@ -34,7 +37,15 @@ const Statistics = () => {
             appearance="dark"
             activeFontStyle={styles.segmentFontStyle}
             style={styles.segmentStyle}
+            fontStyle={{ ...styles.segmentFontStyle, color: colors.white }}
           />
+          <View style={styles.chartContainer}>
+            {chartData.length > 0 ? (
+              <BarChart />
+            ) : (
+              <View style={styles.noChart} />
+            )}
+          </View>
         </ScrollView>
       </View>
     </ScreenWrapper>
