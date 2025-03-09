@@ -50,6 +50,23 @@ export const deleteWallet = async (walletId: string): Promise<ResponseType> => {
     const walletRef = doc(firestore, "wallets", walletId);
     await deleteDoc(walletRef);
     //TO DO - must delete all transcations associated with it too.
+    //37.29
+
+    return { success: true, msg: "Wallet Deleted Successfully" };
+  } catch (error: any) {
+    console.log("Error Deleting Wallet: ", error);
+    return { success: false, msg: error.message };
+  }
+};
+
+export const deleteTransactionsByWallet = async (
+  walletId: string
+): Promise<ResponseType> => {
+  try {
+    const walletRef = doc(firestore, "wallets", walletId);
+    await deleteDoc(walletRef);
+    //TO DO - must delete all transcations associated with it too.
+    //37.29
 
     return { success: true, msg: "Wallet Deleted Successfully" };
   } catch (error: any) {
