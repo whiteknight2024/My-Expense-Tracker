@@ -61,6 +61,7 @@ export const deleteWallet = async (walletId: string): Promise<ResponseType> => {
     await deleteDoc(walletRef);
     //TO DO - must delete all transcations associated with it too.
     //37.29
+    deleteTransactionsByWalletId(walletId);
 
     return { success: true, msg: "Wallet Deleted Successfully" };
   } catch (error: any) {
