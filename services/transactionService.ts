@@ -314,9 +314,26 @@ export const fetchWeeklyStats = async (uid: string): Promise<ResponseType> => {
         .split("T")[0]; //will specific date
 
       const dayData = weeklyData.find((day) => day.date == transactionDate);
+
       if (dayData) {
+        if (transaction.type == "income") {
+          dayData.income += transaction.amount;
+        } else if (transaction.type == "expense") {
+          dayData.expense += transaction.amount;
+        }
       }
     });
+
+    const stats = weeklyData.flatMap((day) => [
+      {
+        value: day.income,
+        label: "Mon",
+        spacing: scale(10), // Increase spacing
+        labelWidth: scale(50), // Increase label width
+        frontColor: colors.primary,
+      },
+      { value: day.expense, frontColor: colors.rose },
+    ]);
 
     return { success: true };
   } catch (err: any) {
