@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
 import { colors, radius, spacingX, spacingY } from "@/constants/theme";
@@ -71,6 +71,19 @@ const Statistics = () => {
     { value: 30, frontColor: colors.rose },
   ]);
 
+  //18.34  now fetch the data
+  useEffect(() => {
+    if (activeIndex == 0) {
+      getWeeklyStats();
+    }
+    if (activeIndex == 1) {
+      getMonthlyStats();
+    }
+    if (activeIndex == 2) {
+      getYearlyStats();
+    }
+  }, [activeIndex]);
+
   return (
     <ScreenWrapper>
       <View style={styles.container}>
@@ -98,7 +111,7 @@ const Statistics = () => {
             style={styles.segmentStyle}
             fontStyle={{ ...styles.segmentFontStyle, color: colors.white }}
           />
-          {/* 14.27 */}
+
           <View style={styles.chartContainer}>
             {chartData.length > 0 ? (
               <BarChart
