@@ -73,7 +73,7 @@ const Statistics = () => {
     { value: 30, frontColor: colors.rose },
   ]);
 
-  //18.34  now fetch the data
+  //31.22
   useEffect(() => {
     if (activeIndex == 0) {
       getWeeklyStats();

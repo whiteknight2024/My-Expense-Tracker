@@ -16,6 +16,8 @@ import {
 import { uploadFileToCloudinary } from "./imageService";
 import { createOrUpdateWallet } from "./walletService";
 import { getLast7Days } from "@/utils/common";
+import { scale } from "@/utils/styling";
+import { colors } from "@/constants/theme";
 
 export const createOrUpdateTransaction = async (
   transactionData: Partial<TransactionType>
@@ -327,7 +329,7 @@ export const fetchWeeklyStats = async (uid: string): Promise<ResponseType> => {
     const stats = weeklyData.flatMap((day) => [
       {
         value: day.income,
-        label: "Mon",
+        label: day.day,
         spacing: scale(10), // Increase spacing
         labelWidth: scale(50), // Increase label width
         frontColor: colors.primary,
@@ -335,7 +337,15 @@ export const fetchWeeklyStats = async (uid: string): Promise<ResponseType> => {
       { value: day.expense, frontColor: colors.rose },
     ]);
 
-    return { success: true };
+    return {
+      success: true,
+      data: {
+        stats,
+        transactions,
+      },
+    };
+
+    //return { success: true };
   } catch (err: any) {
     console.log("Error getting weekly stats: ", err);
     return { success: false, msg: err.message };
