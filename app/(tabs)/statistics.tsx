@@ -122,9 +122,8 @@ const Statistics = () => {
                 }}
                 noOfSections={3}
                 minHeight={5}
-                isAnimated={true}
-                animationDuration={1000}
-                //maxValue={100}
+                //isAnimated={true}
+                //animationDuration={1000}
               />
             ) : (
               <View style={styles.noChart} />
