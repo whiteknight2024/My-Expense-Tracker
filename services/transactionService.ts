@@ -226,16 +226,6 @@ const revertAndUpdateWallets = async (
   }
 };
 
-// ❌incorrect:
-// if (transactionType == "expense" && newWalletAmount < 0) {
-//       return { success: false, msg: "You cannot delete this transaction" };
-// }
-
-// ✅correct:
-// if (transactionType == "income" && newWalletAmount < 0) {
-//       return { success: false, msg: "You cannot delete this transaction" };
-// }
-
 export const deleteTransaction = async (
   transactionId: string,
   walletId: string
@@ -280,7 +270,34 @@ export const deleteTransaction = async (
 
     return { success: true };
   } catch (err: any) {
-    console.log("Error updating wallet for new transaction:", err);
+    console.log("Error updating wallet for new transaction: ", err);
+    return { success: false, msg: err.message };
+  }
+};
+
+export const fetchWeeklyStats = async (uid: string) => {
+  try {
+    return { success: true };
+  } catch (err: any) {
+    console.log("Error getting weekly stats: ", err);
+    return { success: false, msg: err.message };
+  }
+};
+
+export const fetchMonthlyStats = async (uid: string) => {
+  try {
+    return { success: true };
+  } catch (err: any) {
+    console.log("Error getting monthly stats: ", err);
+    return { success: false, msg: err.message };
+  }
+};
+
+export const fetchYearlyStats = async (uid: string) => {
+  try {
+    return { success: true };
+  } catch (err: any) {
+    console.log("Error getting yearly stats: ", err);
     return { success: false, msg: err.message };
   }
 };

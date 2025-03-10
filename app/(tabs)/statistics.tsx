@@ -8,10 +8,12 @@ import Header from "@/components/Header";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import { BarChart } from "react-native-gifted-charts";
 import Loading from "@/components/Loading";
+import { useAuth } from "@/contexts/authContext";
 
 const Statistics = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [chartLoading, setChartLoading] = useState(false);
+  const { user } = useAuth();
   const [chartData, setChartData] = useState([
     {
       value: 40,
