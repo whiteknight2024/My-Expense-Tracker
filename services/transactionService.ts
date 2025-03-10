@@ -275,8 +275,10 @@ export const deleteTransaction = async (
   }
 };
 
-export const fetchWeeklyStats = async (uid: string) => {
+export const fetchWeeklyStats = async (uid: string): Promise<ResponseType> => {
   try {
+    const db = firestore;
+
     return { success: true };
   } catch (err: any) {
     console.log("Error getting weekly stats: ", err);
@@ -284,7 +286,7 @@ export const fetchWeeklyStats = async (uid: string) => {
   }
 };
 
-export const fetchMonthlyStats = async (uid: string) => {
+export const fetchMonthlyStats = async (uid: string): Promise<ResponseType> => {
   try {
     return { success: true };
   } catch (err: any) {
@@ -293,7 +295,7 @@ export const fetchMonthlyStats = async (uid: string) => {
   }
 };
 
-export const fetchYearlyStats = async (uid: string) => {
+export const fetchYearlyStats = async (uid: string): Promise<ResponseType> => {
   try {
     return { success: true };
   } catch (err: any) {
