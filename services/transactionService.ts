@@ -281,7 +281,7 @@ export const deleteTransaction = async (
   }
 };
 
-//2047 vid 14
+//23.05 vid 14
 export const fetchWeeklyStats = async (uid: string): Promise<ResponseType> => {
   try {
     const db = firestore;
@@ -299,6 +299,15 @@ export const fetchWeeklyStats = async (uid: string): Promise<ResponseType> => {
 
     const querySnapshot = await getDocs(transactionsQuery);
     const weeklyData = getLast7Days();
+    const transactions: TransactionType[] = [];
+
+    //map each transaction for each day income and expense 23.56
+    // maping each transaction in day
+    querySnapshot.forEach((doc) => {
+      const transaction = doc.data() as TransactionType;
+      transaction.id = doc.id;
+      transactions.push(transaction);
+    });
 
     return { success: true };
   } catch (err: any) {
