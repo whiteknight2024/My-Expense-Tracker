@@ -307,6 +307,15 @@ export const fetchWeeklyStats = async (uid: string): Promise<ResponseType> => {
       const transaction = doc.data() as TransactionType;
       transaction.id = doc.id;
       transactions.push(transaction);
+
+      const transactionDate = (transaction.date as Timestamp)
+        .toDate()
+        .toISOString()
+        .split("T")[0]; //will specific date
+
+      const dayData = weeklyData.find((day) => day.date == transactionDate);
+      if (dayData) {
+      }
     });
 
     return { success: true };
