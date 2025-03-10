@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import Typo from "@/components/Typo";
@@ -9,6 +9,7 @@ import SegmentedControl from "@react-native-segmented-control/segmented-control"
 import { BarChart } from "react-native-gifted-charts";
 import Loading from "@/components/Loading";
 import { useAuth } from "@/contexts/authContext";
+import { fetchWeeklyStats } from "@/services/transactionService";
 
 const Statistics = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -86,7 +87,16 @@ const Statistics = () => {
     }
   }, [activeIndex]);
 
-  const getWeeklyStats = async () => {};
+  const getWeeklyStats = async () => {
+    setChartLoading(true);
+    let res = await fetchWeeklyStats(user?.uid as string);
+    setChartLoading(false);
+    if (res.success) {
+      setChartData(res?.data?.stats);
+    } else {
+      Alert.alert("Weekly Stats Fetch Error", res.msg);
+    }
+  };
   const getMonthlyStats = async () => {};
   const getYearlyStats = async () => {};
 
