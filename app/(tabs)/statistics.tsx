@@ -84,6 +84,10 @@ const Statistics = () => {
     }
   }, [activeIndex]);
 
+  const getWeeklyStats = async () => {};
+  const getMonthlyStats = async () => {};
+  const getYearlyStats = async () => {};
+
   return (
     <ScreenWrapper>
       <View style={styles.container}>
