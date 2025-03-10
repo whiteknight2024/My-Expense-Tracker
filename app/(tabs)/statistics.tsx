@@ -7,70 +7,11 @@ import { scale, verticalScale } from "@/utils/styling";
 import Header from "@/components/Header";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import { BarChart } from "react-native-gifted-charts";
-
-//12.11
-
-// const barData2 = [
-//   {
-//     value: 40,
-//     label: "Mon",
-//     spacing: scale(10), // Increase spacing
-//     labelWidth: scale(50), // Increase label width
-//     frontColor: colors.primary,
-//   },
-//   { value: 40, frontColor: colors.rose },
-//   {
-//     value: 50,
-//     label: "Tue",
-//     spacing: scale(10), // Increase spacing
-//     labelWidth: scale(50), // Increase label width
-//     frontColor: colors.primary,
-//   },
-//   { value: 40, frontColor: colors.rose },
-//   {
-//     value: 75,
-//     label: "Wed",
-//     spacing: scale(10), // Increase spacing
-//     labelWidth: scale(50), // Increase label width
-//     frontColor: colors.primary,
-//   },
-//   { value: 25, frontColor: colors.rose },
-//   {
-//     value: 30,
-//     label: "Thu",
-//     spacing: scale(10), // Increase spacing
-//     labelWidth: scale(50), // Increase label width
-//     frontColor: colors.primary,
-//   },
-//   { value: 20, frontColor: colors.rose },
-//   {
-//     value: 60,
-//     label: "Fri",
-//     spacing: scale(10), // Increase spacing
-//     labelWidth: scale(50), // Increase label width
-//     frontColor: colors.primary,
-//   },
-//   { value: 40, frontColor: colors.rose },
-//   {
-//     value: 65,
-//     label: "Sat",
-//     spacing: scale(10), // Increase spacing
-//     labelWidth: scale(50), // Increase label width
-//     frontColor: colors.primary,
-//   },
-//   { value: 30, frontColor: colors.rose },
-//   {
-//     value: 65,
-//     label: "Sun",
-//     spacing: scale(10), // Increase spacing
-//     labelWidth: scale(50), // Increase label width
-//     frontColor: colors.primary,
-//   },
-//   { value: 30, frontColor: colors.rose },
-// ];
+import Loading from "@/components/Loading";
 
 const Statistics = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [chartLoading, setChartLoading] = useState(false);
   const [chartData, setChartData] = useState([
     {
       value: 40,
@@ -157,19 +98,23 @@ const Statistics = () => {
             style={styles.segmentStyle}
             fontStyle={{ ...styles.segmentFontStyle, color: colors.white }}
           />
+          {/* 14.27 */}
           <View style={styles.chartContainer}>
             {chartData.length > 0 ? (
               <BarChart
                 data={chartData}
                 barWidth={scale(12)}
-                spacing={scale(25)}
+                spacing={[1, 2].includes(activeIndex) ? scale(25) : scale(16)}
                 roundedTop
                 roundedBottom
                 hideRules
                 yAxisLabelPrefix="$"
                 yAxisThickness={0}
                 xAxisThickness={0}
-                yAxisLabelWidth={scale(40)}
+                //yAxisLabelWidth={scale(40)}
+                yAxisLabelWidth={
+                  [1, 2].includes(activeIndex) ? scale(38) : scale(35)
+                }
                 yAxisTextStyle={{ color: colors.neutral350 }}
                 xAxisLabelTextStyle={{
                   color: colors.neutral350,
@@ -177,9 +122,18 @@ const Statistics = () => {
                 }}
                 noOfSections={3}
                 minHeight={5}
+                isAnimated={true}
+                animationDuration={1000}
+                //maxValue={100}
               />
             ) : (
               <View style={styles.noChart} />
+            )}
+
+            {chartLoading && (
+              <View style={styles.chartLoadingContainer}>
+                <Loading color={colors.white} />
+              </View>
             )}
           </View>
         </ScrollView>
