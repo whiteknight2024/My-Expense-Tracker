@@ -5,11 +5,17 @@ import {
   deleteDoc,
   doc,
   getDoc,
+  getDocs,
+  orderBy,
+  query,
   setDoc,
+  Timestamp,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { uploadFileToCloudinary } from "./imageService";
 import { createOrUpdateWallet } from "./walletService";
+import { getLast7Days } from "@/utils/common";
 
 export const createOrUpdateTransaction = async (
   transactionData: Partial<TransactionType>
@@ -275,9 +281,24 @@ export const deleteTransaction = async (
   }
 };
 
+//2047 vid 14
 export const fetchWeeklyStats = async (uid: string): Promise<ResponseType> => {
   try {
     const db = firestore;
+    const today = new Date();
+    const sevenDaysAgo = new Date(today);
+    sevenDaysAgo.setDate(today.getDate() - 7);
+
+    const transactionsQuery = query(
+      collection(db, "transactions"),
+      where("date", ">=", Timestamp.fromDate(sevenDaysAgo)),
+      where("date", "<=", Timestamp.fromDate(today)),
+      orderBy("date", "desc"),
+      where("uid", "==", uid)
+    );
+
+    const querySnapshot = await getDocs(transactionsQuery);
+    const weeklyData = getLast7Days();
 
     return { success: true };
   } catch (err: any) {
