@@ -354,7 +354,66 @@ export const fetchWeeklyStats = async (uid: string): Promise<ResponseType> => {
 
 export const fetchMonthlyStats = async (uid: string): Promise<ResponseType> => {
   try {
-    return { success: true };
+    const db = firestore;
+    const today = new Date();
+    const sevenDaysAgo = new Date(today);
+    sevenDaysAgo.setDate(today.getDate() - 7);
+
+    const transactionsQuery = query(
+      collection(db, "transactions"),
+      where("date", ">=", Timestamp.fromDate(sevenDaysAgo)),
+      where("date", "<=", Timestamp.fromDate(today)),
+      orderBy("date", "desc"),
+      where("uid", "==", uid)
+    );
+
+    const querySnapshot = await getDocs(transactionsQuery);
+    const weeklyData = getLast7Days();
+    const transactions: TransactionType[] = [];
+
+    //map each transaction for each day income and expense 23.56
+    // maping each transaction in day
+    querySnapshot.forEach((doc) => {
+      const transaction = doc.data() as TransactionType;
+      transaction.id = doc.id;
+      transactions.push(transaction);
+
+      const transactionDate = (transaction.date as Timestamp)
+        .toDate()
+        .toISOString()
+        .split("T")[0]; //will specific date
+
+      const dayData = weeklyData.find((day) => day.date == transactionDate);
+
+      if (dayData) {
+        if (transaction.type == "income") {
+          dayData.income += transaction.amount;
+        } else if (transaction.type == "expense") {
+          dayData.expense += transaction.amount;
+        }
+      }
+    });
+
+    const stats = weeklyData.flatMap((day) => [
+      {
+        value: day.income,
+        label: day.day,
+        spacing: scale(10), // Increase spacing
+        labelWidth: scale(50), // Increase label width
+        frontColor: colors.primary,
+      },
+      { value: day.expense, frontColor: colors.rose },
+    ]);
+
+    return {
+      success: true,
+      data: {
+        stats,
+        transactions,
+      },
+    };
+
+    //return { success: true };
   } catch (err: any) {
     console.log("Error getting monthly stats: ", err);
     return { success: false, msg: err.message };
