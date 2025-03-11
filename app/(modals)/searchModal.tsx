@@ -27,6 +27,7 @@ import ImageUpload from "@/components/ImageUpload";
 import { createOrUpdateWallet, deleteWallet } from "@/services/walletService";
 import useFetchData from "@/hooks/useFetchData";
 import { limit, orderBy, where } from "firebase/firestore";
+import TransactionList from "@/components/TransactionList";
 
 //4.35 vid 15
 const SearchModal = () => {
@@ -43,7 +44,7 @@ const SearchModal = () => {
     loading: transactionsLoading,
   } = useFetchData<TransactionType>("transactions", constraints);
 
-  console.log("allTransactions", allTransactions.length);
+  // console.log("allTransactions", allTransactions.length);
 
   return (
     <ModalWrapper style={{ backgroundColor: colors.neutral900 }}>
@@ -62,6 +63,13 @@ const SearchModal = () => {
               value={search}
               onChangeText={(value) => setSearch(value)}
               containerStyle={{ backgroundColor: colors.neutral800 }}
+            />
+          </View>
+          <View>
+            <TransactionList
+              loading={transactionsLoading}
+              data={allTransactions}
+              emptyListMessage="No transactions match your search keywords"
             />
           </View>
         </ScrollView>
