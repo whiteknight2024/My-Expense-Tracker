@@ -426,11 +426,76 @@ export const fetchMonthlyStats = async (uid: string): Promise<ResponseType> => {
   }
 };
 
+//40.24
 export const fetchYearlyStats = async (uid: string): Promise<ResponseType> => {
   try {
-    return { success: true };
-  } catch (err: any) {
-    console.log("Error getting yearly stats: ", err);
-    return { success: false, msg: err.message };
+    const db = firestore;
+    const today = new Date();
+    const twelveMonthsAgo = new Date(today);
+    twelveMonthsAgo.setMonth(today.getMonth() - 12);
+
+    // Define query to fetch transactions in the last 12 months
+    const transactionsQuery = query(
+      collection(db, "transactions"),
+      where("date", ">=", Timestamp.fromDate(twelveMonthsAgo)),
+      where("date", "<=", Timestamp.fromDate(today)),
+      orderBy("date", "desc"),
+      where("uid", "==", uid)
+    );
+
+    const querySnapshot = await getDocs(transactionsQuery);
+    const monthlyData = getLast12Months();
+    const transactions: TransactionType[] = [];
+
+    // Process transactions to calculate income and expense for each month
+    querySnapshot.forEach((doc) => {
+      const transaction = doc.data() as TransactionType;
+      transaction.id = doc.id; // Include document ID in transaction data
+      transactions.push(transaction);
+
+      const transactionDate = (transaction.date as Timestamp).toDate();
+      const monthName = transactionDate.toLocaleString("default", {
+        month: "short",
+      });
+      const shortYear = transactionDate.getFullYear().toString().slice(-2);
+      const monthData = monthlyData.find(
+        (month) => month.month === `${monthName} ${shortYear}`
+      );
+
+      if (monthData) {
+        if (transaction.type === "income") {
+          monthData.income += transaction.amount;
+        } else if (transaction.type === "expense") {
+          monthData.expense += transaction.amount;
+        }
+      }
+    });
+
+    const stats = monthlyData.flatMap((month) => [
+      {
+        value: month.income,
+        spacing: scale(4),
+        labelWidth: scale(46),
+        frontColor: colors.primary, // Income bar color
+      },
+      {
+        value: month.expense,
+        frontColor: colors.rose, // Expense bar color
+      },
+    ]);
+
+    return {
+      success: true,
+      data: {
+        stats,
+        transactions, // Include all transaction details
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching yearly transactions:", error);
+    return {
+      success: false,
+      msg: "Failed to fetch yearly transactions",
+    };
   }
 };
