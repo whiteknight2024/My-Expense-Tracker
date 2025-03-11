@@ -29,7 +29,7 @@ import useFetchData from "@/hooks/useFetchData";
 import { limit, orderBy, where } from "firebase/firestore";
 import TransactionList from "@/components/TransactionList";
 
-//4.35 vid 15
+//5.47 vid 15
 const SearchModal = () => {
   const { user, updateUserData } = useAuth();
   const [loading, setLoading] = useState(false);
