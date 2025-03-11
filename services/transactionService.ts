@@ -352,6 +352,7 @@ export const fetchWeeklyStats = async (uid: string): Promise<ResponseType> => {
   }
 };
 
+//36.54
 export const fetchMonthlyStats = async (uid: string): Promise<ResponseType> => {
   try {
     const db = firestore;
