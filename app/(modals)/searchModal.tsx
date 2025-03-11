@@ -46,6 +46,15 @@ const SearchModal = () => {
 
   // console.log("allTransactions", allTransactions.length);
 
+  const filteredTransactions = allTransactions.filter((item) => {
+    if (search.length > 1) {
+      if (item.category?.toLowerCase()?.includes(search?.toLowerCase())) {
+        return true;
+      }
+    }
+    return true;
+  });
+
   return (
     <ModalWrapper style={{ backgroundColor: colors.neutral900 }}>
       <View style={styles.container}>
@@ -68,7 +77,7 @@ const SearchModal = () => {
           <View>
             <TransactionList
               loading={transactionsLoading}
-              data={allTransactions}
+              data={filteredTransactions}
               emptyListMessage="No transactions match your search keywords"
             />
           </View>
