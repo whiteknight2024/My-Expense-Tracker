@@ -18,20 +18,32 @@ import { useAuth } from "@/contexts/authContext";
 import * as Icons from "phosphor-react-native";
 import Typo from "@/components/Typo";
 import Input from "@/components/Input";
-import { UserDataType, WalletType } from "@/types";
+import { TransactionType, UserDataType, WalletType } from "@/types";
 import Button from "@/components/Button";
 import { updateUser } from "@/services/userService";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import ImageUpload from "@/components/ImageUpload";
 import { createOrUpdateWallet, deleteWallet } from "@/services/walletService";
+import useFetchData from "@/hooks/useFetchData";
+import { limit, orderBy, where } from "firebase/firestore";
 
-//2.51 vid 15
+//4.35 vid 15
 const SearchModal = () => {
   const { user, updateUserData } = useAuth();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [search, setSearch] = useState("");
+
+  const constraints = [where("uid", "==", user?.uid), orderBy("date", "desc")];
+
+  const {
+    data: allTransactions,
+    error,
+    loading: transactionsLoading,
+  } = useFetchData<TransactionType>("transactions", constraints);
+
+  console.log("allTransactions", allTransactions.length);
 
   return (
     <ModalWrapper style={{ backgroundColor: colors.neutral900 }}>
@@ -46,6 +58,7 @@ const SearchModal = () => {
           <View style={styles.inputContainer}>
             <Input
               placeholder="shoes..."
+              placeholderTextColor={colors.neutral400}
               value={search}
               onChangeText={(value) => setSearch(value)}
               containerStyle={{ backgroundColor: colors.neutral800 }}
