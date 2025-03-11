@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import ScreenWrapper from "@/components/ScreenWrapper";
+import Typo from "@/components/Typo";
 
 const SearchModal = () => {
   return (
-    <View>
-      <Text>SearchModal</Text>
-    </View>
+    <ScreenWrapper>
+      <Typo>SearchModal</Typo>
+    </ScreenWrapper>
   );
 };
 
