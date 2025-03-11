@@ -48,9 +48,14 @@ const SearchModal = () => {
 
   const filteredTransactions = allTransactions.filter((item) => {
     if (search.length > 1) {
-      if (item.category?.toLowerCase()?.includes(search?.toLowerCase())) {
+      if (
+        item.category?.toLowerCase()?.includes(search?.toLowerCase()) ||
+        item.type?.toLowerCase()?.includes(search?.toLowerCase()) ||
+        item.description?.toLowerCase()?.includes(search?.toLowerCase())
+      ) {
         return true;
       }
+      return false;
     }
     return true;
   });
