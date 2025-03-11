@@ -12,6 +12,7 @@ import { useAuth } from "@/contexts/authContext";
 import {
   fetchMonthlyStats,
   fetchWeeklyStats,
+  fetchYearlyStats,
 } from "@/services/transactionService";
 import TransactionList from "@/components/TransactionList";
 
@@ -57,7 +58,17 @@ const Statistics = () => {
       Alert.alert("Monthly Stats Fetch Error", res.msg);
     }
   };
-  const getYearlyStats = async () => {};
+  const getYearlyStats = async () => {
+    setChartLoading(true);
+    let res = await fetchYearlyStats(user?.uid as string);
+    setChartLoading(false);
+    if (res.success) {
+      setChartData(res?.data?.stats);
+      setTransactions(res?.data?.transactions);
+    } else {
+      Alert.alert("Yearly Stats Fetch Error", res.msg);
+    }
+  };
 
   return (
     <ScreenWrapper>
