@@ -402,7 +402,7 @@ export const fetchMonthlyStats = async (uid: string): Promise<ResponseType> => {
         value: month.income,
         label: month.month,
         spacing: scale(4),
-        labelWidth: scale(50),
+        labelWidth: scale(50), //perhaps bigger to get Dec 24
         frontColor: colors.primary, // Income bar color
       },
       {
