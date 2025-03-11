@@ -10,71 +10,16 @@ import { BarChart } from "react-native-gifted-charts";
 import Loading from "@/components/Loading";
 import { useAuth } from "@/contexts/authContext";
 import { fetchWeeklyStats } from "@/services/transactionService";
+import TransactionList from "@/components/TransactionList";
 
 const Statistics = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [chartLoading, setChartLoading] = useState(false);
   const { user } = useAuth();
-  const [chartData, setChartData] = useState([
-    {
-      value: 40,
-      label: "Mon",
-      spacing: scale(10), // Increase spacing
-      labelWidth: scale(50), // Increase label width
-      frontColor: colors.primary,
-    },
-    { value: 40, frontColor: colors.rose },
-    {
-      value: 50,
-      label: "Tue",
-      spacing: scale(10), // Increase spacing
-      labelWidth: scale(50), // Increase label width
-      frontColor: colors.primary,
-    },
-    { value: 40, frontColor: colors.rose },
-    {
-      value: 75,
-      label: "Wed",
-      spacing: scale(10), // Increase spacing
-      labelWidth: scale(50), // Increase label width
-      frontColor: colors.primary,
-    },
-    { value: 25, frontColor: colors.rose },
-    {
-      value: 30,
-      label: "Thu",
-      spacing: scale(10), // Increase spacing
-      labelWidth: scale(50), // Increase label width
-      frontColor: colors.primary,
-    },
-    { value: 20, frontColor: colors.rose },
-    {
-      value: 60,
-      label: "Fri",
-      spacing: scale(10), // Increase spacing
-      labelWidth: scale(50), // Increase label width
-      frontColor: colors.primary,
-    },
-    { value: 40, frontColor: colors.rose },
-    {
-      value: 65,
-      label: "Sat",
-      spacing: scale(10), // Increase spacing
-      labelWidth: scale(50), // Increase label width
-      frontColor: colors.primary,
-    },
-    { value: 30, frontColor: colors.rose },
-    {
-      value: 65,
-      label: "Sun",
-      spacing: scale(10), // Increase spacing
-      labelWidth: scale(50), // Increase label width
-      frontColor: colors.primary,
-    },
-    { value: 30, frontColor: colors.rose },
-  ]);
+  const [chartData, setChartData] = useState([]);
+  const [transactions, setTransactions] = useState([]);
 
-  //31.22
+  //33.46
   useEffect(() => {
     if (activeIndex == 0) {
       getWeeklyStats();
@@ -93,6 +38,7 @@ const Statistics = () => {
     setChartLoading(false);
     if (res.success) {
       setChartData(res?.data?.stats);
+      setTransactions(res?.data?.transactions);
     } else {
       Alert.alert("Weekly Stats Fetch Error", res.msg);
     }
@@ -163,6 +109,15 @@ const Statistics = () => {
                 <Loading color={colors.white} />
               </View>
             )}
+          </View>
+          {/* show transactions */}
+          {/* transactions */}
+          <View>
+            <TransactionList
+              title="Transactions"
+              emptyListMessage="No transactions found"
+              data={transactions}
+            />
           </View>
         </ScrollView>
       </View>
